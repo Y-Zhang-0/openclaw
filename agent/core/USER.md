@@ -4,12 +4,10 @@
 
 | 字段 | 内容 |
 |------|------|
-| **name** | 不详（飞书 ID: ou_f3a4572c429f3bb0fa608ba52f9740cf） |
-| **nickname** | 彩虹债务人 |
-| **what to call them** | 彩虹债务人 |
-| **pronouns** | 待确认 |
+| **name** | 彩虹债务人 |
+| **pronouns** | he/his |
 | **timezone** | Asia/Shanghai |
-| **version** | 0.6 |
+| **version** | 0.7 |
 
 ---
 
@@ -27,7 +25,7 @@
 - 在学习 OpenClaw 进阶用法（soul.md、skills、系统定制、cron）
 - 有学习 English 的打算（适当中英混用）
 - 对"遗忘"和"记忆断层"很敏感
-- 目标：让 Iris 变得更好、更喜欢他、更能帮他
+- 目标：让 Iris 变得更好、更喜欢她、更能帮她
 
 ---
 
