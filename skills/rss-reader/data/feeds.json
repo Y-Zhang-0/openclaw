@@ -1,0 +1,113 @@
+{
+  "feeds": [
+    {
+      "url": "https://news.ycombinator.com/rss",
+      "name": "Hacker News",
+      "category": "tech",
+      "enabled": true,
+      "lastChecked": "2026-04-21T10:25:45.118Z",
+      "lastItemDate": "2026-04-20T20:39:32.000Z"
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/.rss",
+      "name": "LocalLlama",
+      "category": "ai",
+      "enabled": true,
+      "lastChecked": "2026-04-21T23:55:06.560Z",
+      "lastItemDate": "2026-04-13T21:00:57.000Z"
+    },
+    {
+      "url": "https://planet-ai.net/rss.xml",
+      "name": "Planet AI - Aggregate Feed",
+      "category": "ai-news",
+      "enabled": true,
+      "lastChecked": "2026-04-21T10:36:37.989Z",
+      "lastItemDate": "2026-04-21T07:54:34.000Z"
+    },
+    {
+      "url": "https://github.com/trending",
+      "name": "Trending  repositories on GitHub today · GitHub",
+      "category": "github-trending",
+      "enabled": true,
+      "lastChecked": "2026-04-21T10:25:48.923Z",
+      "lastItemDate": null
+    },
+    {
+      "url": "https://arxiv.org/rss/cs.AI",
+      "name": "cs.AI updates on arXiv.org",
+      "category": "arxiv",
+      "enabled": true,
+      "lastChecked": "2026-04-21T23:55:16.221Z",
+      "lastItemDate": "2026-04-21T04:00:00.000Z"
+    },
+    {
+      "url": "https://www.reddit.com/r/openai/.rss",
+      "name": "OpenAI",
+      "category": "reddit",
+      "enabled": true,
+      "lastChecked": "2026-04-21T23:55:07.853Z",
+      "lastItemDate": "2025-10-16T22:41:55.000Z"
+    },
+    {
+      "url": "https://www.reddit.com/r/anthropicAI/.rss",
+      "name": "AnthropicAI",
+      "category": "reddit",
+      "enabled": true,
+      "lastChecked": "2026-04-21T23:55:09.453Z",
+      "lastItemDate": "2023-02-05T04:16:38.000Z"
+    },
+    {
+      "url": "https://www.reddit.com/r/MachineLearning/.rss",
+      "name": "Machine Learning",
+      "category": "reddit",
+      "enabled": true,
+      "lastChecked": "2026-04-21T23:55:10.585Z",
+      "lastItemDate": "2026-04-02T02:15:24.000Z"
+    },
+    {
+      "url": "https://www.reddit.com/r/artificial/.rss",
+      "name": "Artificial Intelligence (AI)",
+      "category": "reddit",
+      "enabled": true,
+      "lastChecked": "2026-04-21T23:55:11.687Z",
+      "lastItemDate": "2026-04-21T12:35:57.000Z"
+    },
+    {
+      "url": "https://www.reddit.com/r/singularity/.rss",
+      "name": "Singularity",
+      "category": "reddit",
+      "enabled": true,
+      "lastChecked": "2026-04-21T23:55:12.792Z",
+      "lastItemDate": "2026-04-17T07:27:05.000Z"
+    },
+    {
+      "url": "https://www.reddit.com/r/AI_Agents/.rss",
+      "name": "AI Agents",
+      "category": "reddit",
+      "enabled": true,
+      "lastChecked": "2026-04-21T23:55:13.832Z",
+      "lastItemDate": "2026-04-15T16:00:21.000Z"
+    },
+    {
+      "url": "https://www.reddit.com/r/PromptEngineering/.rss",
+      "name": "PromptEngineering",
+      "category": "reddit",
+      "enabled": true,
+      "lastChecked": "2026-04-21T23:55:14.828Z",
+      "lastItemDate": "2023-03-24T10:17:07.000Z"
+    },
+    {
+      "url": "https://www.reddit.com/r/ComfyUI/.rss",
+      "name": "comfyui",
+      "category": "reddit",
+      "enabled": true,
+      "lastChecked": "2026-04-21T23:55:16.099Z",
+      "lastItemDate": "2026-03-27T00:43:27.000Z"
+    }
+  ],
+  "settings": {
+    "maxItemsPerFeed": 10,
+    "maxAgeDays": 7,
+    "summaryEnabled": true
+  }
+}

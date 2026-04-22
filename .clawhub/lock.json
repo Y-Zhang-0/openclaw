@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "skills": {
+    "self-improving-agent": {
+      "version": "3.0.16",
+      "installedAt": 1776763442409
+    },
+    "skill-vetter": {
+      "version": "1.0.0",
+      "installedAt": 1776763561193
+    },
+    "proactive-agent": {
+      "version": "3.1.0",
+      "installedAt": 1776763818351
+    },
+    "humanizer": {
+      "version": "1.0.0",
+      "installedAt": 1776763861735
+    },
+    "skill-creator": {
+      "version": "0.1.0",
+      "installedAt": 1776763865288
+    },
+    "skillscan": {
+      "version": "1.1.6",
+      "installedAt": 1776764173091
+    },
+    "find-skills-skill": {
+      "version": "1.0.0",
+      "installedAt": 1776766002635
+    },
+    "rss-reader": {
+      "version": "1.0.0",
+      "installedAt": 1776766010960
+    },
+    "cron-scheduler": {
+      "version": "1.0.0",
+      "installedAt": 1776766028433
+    },
+    "auto-updater": {
+      "version": "1.0.0",
+      "installedAt": 1776766953087
+    }
+  }
+}
