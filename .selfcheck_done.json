@@ -1,5 +1,5 @@
 {
-  "四栏内容": "【今日不足】1. 22:00 自检 cron consecutiveErrors: 2（P2P 400 错误，从 04-21 延续未解决） 2. facts.md 从未创建，导致长期记忆沉淀路径混乱 3. Checkpoint Skill 安装未推进（方案已提出，用户未确认）\n【用户观察】信任放权持续生效·周报三段式格式被接受·用户持续主动监控行为边界（连续多日发现承诺未兑现）·对重复信息敏感\n【值得沉淀】facts.md 定位确认：facts.md=高层提炼（精华）+ .learnings/=原始日志，两者分工明确；Pattern: isolated session 飞书 P2P 400 错误（根因待查，暂缓 skill）\n【明日行动】排查 22:00 自检 P2P 400 错误（调查 isolated session channel auth）·facts.md 已创建完成·Checkpoint Skill 继续等待用户确认",
+  "四栏内容": "【今日不足】1. git reset --hard 导致 memory/daily/ 目录被误删，已重建；2. 早期 sessions 的 message 400 错误排查不彻底。\n【用户观察】1. 用户要求"没有证据不随便告知结论"，自检驱动必须深入查证；2. 用户持续监控行为边界（23:59 未执行、记忆文件缺失都能主动指出）；3. 用户对 skill 更新策略有明确要求：marketplace skill 用 clawhub force，自修改 skill 用融合版。\n【值得沉淀】1. Pattern: doc-only-commitment — 说要做→文档写→cron 没建，约束：承诺配置后立即执行 openclaw cron add；2. Pattern: isolated session message broadcast 400 — delivery mode 需设为 persistent-message，不是 none；3. Skill force update 时 clawhub 自动保留作者历史版本文件（backup/draft），这是版本记录不是你的修改。\n【明日行动】1. 今晚 22:00 观察自检推送是否正常；2. 确认 Checkpoint Skill 是否安装。",
   "completed": true,
   "skills_created": []
 }
