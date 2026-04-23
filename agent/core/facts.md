@@ -137,3 +137,14 @@
 
 **无日历能力的根本原因**：飞书开放平台没有给 bot 提供 calendar scope，目前 API 不支持机器人管理日程。
 
+
+---
+
+## 核心文件更新原则（2026-04-22 确定）
+
+每次更新 SOUL/AGENTS/USER/IDENTITY/HEARTBEAT/MEMORY 等核心文件时，必须相互对齐：
+- IDENTITY 的 role/archetype 必须与 SOUL 描述一致
+- USER 的 pronouns/外号必须与 SOUL 提到的一致
+- 任何修改后检查相关文件是否需要同步
+
+自检时也需检查核心文件一致性，如有偏差立即修正。
