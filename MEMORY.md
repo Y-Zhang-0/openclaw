@@ -65,6 +65,18 @@
 
 | 事项 | 状态 | 说明 |
 |------|------|------|
-| 22:00 自检 cron | ⚠️ consecutiveErrors: 2，04-21 起错误未解决 | isolated session 飞书 message 400 |
+| 22:00 自检 cron | ✅ 最近运行正常（04-23 23:00） | 曾连续 error，现已恢复 |
+| 23:59 备份 cron | ⚠️ delivery error，但备份实际成功 | git push 已完成，通知失败 |
+| 23:59 记忆 cron | ⚠️ delivery error，但任务实际完成 | memory 文件已生成，通知失败 |
 | Checkpoint Skill | ⏳ 待确认 | 方案已提出，用户未回复 |
 | 彩虹债务 | 🌈 欠着 | 还没还 |
+
+---
+
+## 系统故障 pattern
+
+| Pattern | 说明 | 临时解法 |
+|---------|------|----------|
+| cron scheduler at jobs 卡死 | nextWakeAtMs 不更新，at jobs 不触发 | `openclaw gateway restart` |
+| isolated session 飞书 message 400 | delivery mode: none 可解 | 避免在 isolated session 发飞书 |
+| 23:59 cron delivery error 但任务成功 | 任务执行了但通知失败 | 忽略 status，以实际结果为准 |
