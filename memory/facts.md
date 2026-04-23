@@ -30,7 +30,10 @@
 | 组件 | 状态 | 说明 |
 |------|------|------|
 | 23:59 cron（GitHub备份） | ✅ 已创建 | id: 00a8ff0c，下次执行 04-24 00:00 |
-| 22:00 自检 cron | ⚠️ consecutiveErrors: 2 | P2P 消息 400 错误未解决 |
+| 22:00 自检 cron | ⚠️ consecutiveErrors: 2，04-21 起错误未解决 | isolated session 飞书 message 400 |
+| 23:59 cron（GitHub备份） | ✅ 已创建 | id: 00a8ff0c，下次执行 04-24 00:00 |
+| GitHub remote | ✅ 已配置 | origin → Y-Zhang-0/openclaw |
+| facts.md | ✅ 已创建 | 04-24 发现，从未存在现已补 |
 | GitHub remote | ✅ 已配置 | origin → Y-Zhang-0/openclaw |
 | 08:00 早安 | ✅ 正常 |
 | 09:00 AI 资讯 | ✅ 正常 |
@@ -53,7 +56,7 @@
 
 | Skill | 状态 | 说明 |
 |------|------|------|
-| Checkpoint Skill | ⏳ 待用户确认 | 方案已提出，未获确认 |
+| Checkpoint Skill | ⏳ 待确认（04-23 上午提出，用户至今未回复）| 方案已提出，未获确认 |
 
 ---
 

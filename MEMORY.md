@@ -58,3 +58,13 @@
 - **skills 策略**：marketplace skill 不备份（可 clawhub 重装）
 - **GitHub token**：已配置（不记录在文件内）
 - **彩虹债务**：🌈 欠着未还 |
+
+---
+
+## 待追踪事项（长期）
+
+| 事项 | 状态 | 说明 |
+|------|------|------|
+| 22:00 自检 cron | ⚠️ consecutiveErrors: 2，04-21 起错误未解决 | isolated session 飞书 message 400 |
+| Checkpoint Skill | ⏳ 待确认 | 方案已提出，用户未回复 |
+| 彩虹债务 | 🌈 欠着 | 还没还 |
