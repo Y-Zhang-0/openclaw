@@ -13,7 +13,7 @@
       "name": "LocalLlama",
       "category": "ai",
       "enabled": true,
-      "lastChecked": "2026-04-22T01:57:41.287Z",
+      "lastChecked": "2026-04-23T01:00:25.091Z",
       "lastItemDate": "2026-04-13T21:00:57.000Z"
     },
     {
@@ -37,15 +37,15 @@
       "name": "cs.AI updates on arXiv.org",
       "category": "arxiv",
       "enabled": true,
-      "lastChecked": "2026-04-21T23:55:16.221Z",
-      "lastItemDate": "2026-04-21T04:00:00.000Z"
+      "lastChecked": "2026-04-23T01:00:42.381Z",
+      "lastItemDate": "2026-04-22T04:00:00.000Z"
     },
     {
       "url": "https://www.reddit.com/r/openai/.rss",
       "name": "OpenAI",
       "category": "reddit",
       "enabled": true,
-      "lastChecked": "2026-04-21T23:55:07.853Z",
+      "lastChecked": "2026-04-23T01:00:26.321Z",
       "lastItemDate": "2025-10-16T22:41:55.000Z"
     },
     {
@@ -53,7 +53,7 @@
       "name": "AnthropicAI",
       "category": "reddit",
       "enabled": true,
-      "lastChecked": "2026-04-21T23:55:09.453Z",
+      "lastChecked": "2026-04-23T01:00:28.640Z",
       "lastItemDate": "2023-02-05T04:16:38.000Z"
     },
     {
@@ -61,7 +61,7 @@
       "name": "Machine Learning",
       "category": "reddit",
       "enabled": true,
-      "lastChecked": "2026-04-21T23:55:10.585Z",
+      "lastChecked": "2026-04-23T01:00:30.417Z",
       "lastItemDate": "2026-04-02T02:15:24.000Z"
     },
     {
@@ -69,15 +69,15 @@
       "name": "Artificial Intelligence (AI)",
       "category": "reddit",
       "enabled": true,
-      "lastChecked": "2026-04-21T23:55:11.687Z",
-      "lastItemDate": "2026-04-21T12:35:57.000Z"
+      "lastChecked": "2026-04-23T01:00:36.677Z",
+      "lastItemDate": "2026-04-22T21:59:27.000Z"
     },
     {
       "url": "https://www.reddit.com/r/singularity/.rss",
       "name": "Singularity",
       "category": "reddit",
       "enabled": true,
-      "lastChecked": "2026-04-21T23:55:12.792Z",
+      "lastChecked": "2026-04-23T01:00:37.759Z",
       "lastItemDate": "2026-04-17T07:27:05.000Z"
     },
     {
@@ -85,15 +85,15 @@
       "name": "AI Agents",
       "category": "reddit",
       "enabled": true,
-      "lastChecked": "2026-04-21T23:55:13.832Z",
-      "lastItemDate": "2026-04-15T16:00:21.000Z"
+      "lastChecked": "2026-04-23T01:00:39.068Z",
+      "lastItemDate": "2026-04-22T16:00:22.000Z"
     },
     {
       "url": "https://www.reddit.com/r/PromptEngineering/.rss",
       "name": "PromptEngineering",
       "category": "reddit",
       "enabled": true,
-      "lastChecked": "2026-04-21T23:55:14.828Z",
+      "lastChecked": "2026-04-23T01:00:40.642Z",
       "lastItemDate": "2023-03-24T10:17:07.000Z"
     },
     {
@@ -101,7 +101,7 @@
       "name": "comfyui",
       "category": "reddit",
       "enabled": true,
-      "lastChecked": "2026-04-21T23:55:16.099Z",
+      "lastChecked": "2026-04-23T01:00:42.162Z",
       "lastItemDate": "2026-03-27T00:43:27.000Z"
     }
   ],

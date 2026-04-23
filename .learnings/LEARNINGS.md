@@ -51,3 +51,18 @@ OpenClaw 有两套 cron 系统：1) OpenClaw cron (jobs.json) 2) 系统 crontab 
 ### Resolution
 在删除系统 crontab 里的 offwork-message.sh 前，先确认用户是否同意。
 
+---
+
+## [LRN-20260422-004] correction
+
+**Logged**: 2026-04-22T21:40:00+08:00
+**Priority**: high
+**Status**: active
+**Area**: cron
+
+### Summary
+cron 任务 delivery.mode="none" 会导致执行结果不推送给用户。今天 AI 资讯抓取任务 delivery=none，今日执行结果为 not-delivered，用户看不到资讯内容。已将该任务 delivery 改为 announce。
+
+### Prevention
+创建 cron 任务时明确该任务是否需要用户看到结果——如果需要看到，delivery 必须是 announce。delivery=none 仅适用于纯后台任务（结果写文件、触发其他系统等）。
+

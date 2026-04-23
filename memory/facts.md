@@ -49,9 +49,11 @@
 ## 待追踪事项
 
 - 🌈 彩虹债务人（彩虹还欠着）
-- feishu p2p 推送权限曾出问题（未彻底排查）
+- feishu p2p 推送权限曾出问题（未彻底排查）→ ⚠️ 从 04-21 拖到现在，需推进
 - 用户在学习 OpenClaw 进阶用法
 - 用户用飞书群聊
+- 🔔测试-下班提醒残留 → 🗑️ 应删除
+- AI资讯推送链路 → ✅ 已打通
 
 ---
 
@@ -92,6 +94,34 @@
 - 有模式可调 → references/（中自由度）
 - 需判断触发 → SKILL.md 精准描述（中/高自由度）
 
+---
+
+## 本轮自检发现的新 Pattern（2026-04-22 晚间）
+
+### Pattern 1: cron 测试残留导致重复
+- **来源**：`🔔测试-下班提醒` 和 `⏰准时推送-下班提醒` 同时在 19:00 运行，用户收到两条几乎相同的下班提醒
+- **Pattern Key**: `cron-test-remnant-duplicate`
+- **建议**：创建测试 cron 任务时设过期时间，或在自检时检查重复表达式任务
+
+### Pattern 2: cron 配置后主动确认链路
+- **来源**：用户今早自行配置 cron，我作为 22:00 自检没有在下午之前主动确认任务是否生效
+- **Pattern Key**: `cron-config-confirmation`
+- **建议**：cron 大规模修改后，下一个运行时间点前后主动确认执行结果
+
+### Pattern 3: 两套 cron 并存冲突
+- **来源**：系统 crontab (offwork-message.sh) 和 OpenClaw cron 下班提醒重复执行
+- **Pattern Key**: `dual-cron-conflict`
+- **建议**：发现两套 cron 并存时主动报告用户，说明影响，让用户选择
+
+### Pattern 4: AI 资讯推送链路确认 ✅
+- **来源**：今日 09:00 AI资讯抓取 lastDelivered=true，delivery=announce 修复生效
+- **结论**：🤖AI资讯抓取 链路已打通，无需进一步操作
+
+### Pattern 5: 多 cron 同一时间点重复执行
+- **来源**：下班提醒 19:00 两个任务、健身提醒 19:30 两个任务，均同时触发
+- **Pattern Key**: `multi-cron-same-time-duplicate`
+- **建议**：创建 cron 任务前先 list 当前任务，发现同一时间点已有任务则告警或合并
+
 
 ---
 
@@ -117,3 +147,14 @@
 
 **无日历能力的根本原因**：飞书开放平台没有给 bot 提供 calendar scope，目前 API 不支持机器人管理日程。
 
+
+---
+
+## 核心文件更新原则（2026-04-22 确定）
+
+每次更新 SOUL/AGENTS/USER/IDENTITY/HEARTBEAT/MEMORY 等核心文件时，必须相互对齐：
+- IDENTITY 的 role/archetype 必须与 SOUL 描述一致
+- USER 的 pronouns/外号必须与 SOUL 提到的一致
+- 任何修改后检查相关文件是否需要同步
+
+自检时也需检查核心文件一致性，如有偏差立即修正。
