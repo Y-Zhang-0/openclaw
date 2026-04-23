@@ -1,1 +1,2 @@
-{"completed": true, "skills_created": [], "四栏内容": "【今日不足】1. 22:00 自检任务仍处于 error 状态 2. GitHub 备份 remote 未配置 3. 23:59 cron 任务仍未创建\n【用户观察】用户主动监控行为边界、偏好简单直接信息、持续学习 OpenClaw 进阶用法\n【值得沉淀】Pattern: 承诺的配置任务必须立即执行；Pattern: 自检任务失败=整个自检体系失效\n【今日行动】完成后台自检、创建 GitHub 备份 cron、执行手动备份、调查自检 error"}
+{
+  "四栏内容": "【今日不足】1. 22:00 自检 cron consecutiveErrors: 2，根因是飞书 P2P 消息 400 错误（isolated session 权限问题） 2. facts.md 从未创建，长期记忆沉淀路径需明确 3. Checkpoint Skill 安装仍未推进\n【用户观察】接受 AI 资讯数量不固定（自主判断）、周报格式被接受、持续主动监控行为边界\n【值得沉淀】Pattern: isolated session 里飞书 message 工具 400 错误（session auth context 差异）；Pattern: facts.md vs .learnings/ 路径混淆导致记忆断层\n【明日行动】排查 isolated session 飞书 400 错误、确认 facts.md 沉淀路径（迁移到 LEARNINGS.md 或新建）、推进 Checkpoint Skill 安装确认"}
