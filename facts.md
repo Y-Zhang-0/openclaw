@@ -67,9 +67,10 @@
 
 | 事项 | 状态 | 说明 |
 |------|------|------|
-| Feishu P2P推送权限问题 | ⚠️ 未彻底排查 | 2026-04-21 出现过，用户连问两次"怎么开启权限" |
+| Feishu P2P推送权限问题 | ⚠️ 部分已知 | isolated session broadcast 有 400 错误，改用 main session 推送可解 |
 | 彩虹债务人 | 🌈 欠着 | 用户说会有彩虹但那天没出现 |
 | 学习进度 | D1完成：D16进行中 | 类型注解/Pydantic/f-string 已学，async/await 预告 |
+| 系统 crontab offwork 重复 | ✅ 已解决 | 系统 crontab 已无 offwork-message.sh，OpenClaw cron 单独运行 |
 
 
 ---
@@ -112,6 +113,26 @@
 - **说明**：cron delivery.mode="none" 时结果不会推送到聊天，如果需要看到结果必须改为 "announce"
 - **建议**：修改 🤖AI资讯抓取 的 delivery 为 announce，或在任务链路上补一个带 announce 的转发任务
 
+---
+
+## 新发现 Pattern（2026-04-24 整理）
+
+### Pattern 4: cron scheduler at jobs 卡死不触发
+- **来源**：22:00 自检连续两天未触发，at jobs 创建后 nextWakeAtMs 卡死
+- **Pattern Key**: `cron-scheduler-at-job-stuck`
+- **临时解法**：`openclaw gateway restart`
+- **已上报**：GitHub issue
+
+### Pattern 5: isolated session 飞书 broadcast 400 错误
+- **来源**：isolated session 里 message 工具调用飞书报 400 错误
+- **Pattern Key**: `isolated-session-feishu-broadcast-400`
+- **解法**：自检推送改用 main session 或 delivery mode: persistent-message
+
+### Pattern 6: 同秒多 cron 任务启动排队
+- **来源**：23:59 自检+备份同秒触发，先触发的任务 session 启动排队
+- **Pattern Key**: `simultaneous-cron-startup-race`
+- **建议**：同秒任务错开 1-2 秒或合并为一个任务
+
 
 ---
 
@@ -120,6 +141,8 @@
 - [ ] 是否有值得沉淀的新 skill？（用七字法则：反复出现 + 容易出错 + 上下文缺失）
 - [ ] 现有 skills 是否有配置变更需要同步？
 - [ ] 是否有教训要写进 .learnings/LEARNINGS.md？
+- [ ] 4个 error cron 任务（下班/健身/23:59自检/GitHub备份）是否已修复？
+- [ ] GitHub 备份是否正常执行？（00a8ff0c，23:59 触发）
 
 
 ---

@@ -48,6 +48,8 @@
 | 日期 | 教训 |
 |------|------|
 | 2026-04-23 | git reset --hard 会丢失未 commit 的修改，操作前必须确认工作区状态 |
+| 2026-04-23 | cron scheduler at job 不触发 → 重启 gateway（openclaw gateway restart）|
+| 2026-04-23 | isolated session 飞书广播有权限问题，自检推送改用 main session |
 
 ---
 
@@ -65,11 +67,13 @@
 
 | 事项 | 状态 | 说明 |
 |------|------|------|
-| 22:00 自检 cron | ✅ 最近运行正常（04-23 23:00） | 曾连续 error，现已恢复 |
-| 23:59 备份 cron | ⚠️ delivery error，但备份实际成功 | git push 已完成，通知失败 |
-| 23:59 记忆 cron | ⚠️ delivery error，但任务实际完成 | memory 文件已生成，通知失败 |
 | Checkpoint Skill | ⏳ 待确认 | 方案已提出，用户未回复 |
 | 彩虹债务 | 🌈 欠着 | 还没还 |
+| 定时任务 timeout（下班/健身/23:59自检/GitHub备份）| ❌ error | 4个任务 consecutiveErrors=2，需优先修复 |
+| 23:59自检（416c934d）delivery=none | ❌ 需修复 | isolated session mode=none 静默失败，需改为 announce |
+| 23:59 GitHub备份（00a8ff0c）| ❌ error | 与23:59自检同秒触发可能有时序问题 |
+| cron scheduler bug | ⚠️ 需 gateway 重启 | 已上报 GitHub issue |
+| 22:00 自检（8864ceed）| ✅ ok | 2026-04-24 06:39 确认正常 |
 
 ---
 
@@ -78,5 +82,8 @@
 | Pattern | 说明 | 临时解法 |
 |---------|------|----------|
 | cron scheduler at jobs 卡死 | nextWakeAtMs 不更新，at jobs 不触发 | `openclaw gateway restart` |
-| isolated session 飞书 message 400 | delivery mode: none 可解 | 避免在 isolated session 发飞书 |
-| 23:59 cron delivery error 但任务成功 | 任务执行了但通知失败 | 忽略 status，以实际结果为准 |
+| isolated session 飞书 message 400 | delivery mode: persistent-message 可解 | 自检改用 main session 推送 |
+| isolated session delivery mode=none | 错误静默失败，无告警 | cron 任务的 isolated session 至少用 announce |
+| 同秒多 cron 任务触发 | 23:59 自检+备份同秒，session 启动排队 | 建议错开1-2秒或合并任务 |
+| 定时任务 timeout（下班/健身/23:59自检/GitHub备份）| consecutiveErrors=2，冷启动慢或 message 长 | 检查 message 长度或增加 timeoutSeconds |
+| 承诺的配置任务未执行 | doc-only-commitment，连续两天只写文档不建 cron | 承诺配置后立即执行 openclaw cron add |

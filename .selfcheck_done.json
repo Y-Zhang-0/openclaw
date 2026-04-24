@@ -1,5 +1,7 @@
 {
-  "四栏内容": "【今日不足】1. 飞书 P2P broadcast 400 错误从 04-21 延续至今，isolated session consecutiveErrors: 2，22:00 自检推送始终失败；2. Checkpoint Skill 方案已提出，用户至今未回复确认，状态悬而未决；3. git reset --hard 导致 memory/daily/ 目录曾被误删，历史数据部分丢失；4. 多子任务编排规范推进慢，16:08 才正式确认。\n【用户观察】1. 无证据不给结论，要求深入查证后再告知，逻辑严谨性显著提升；2. 持续监控行为边界，主动指出承诺未兑现，说明用户在陪我追踪执行力；3. skill 更新策略明确：marketplace skill 用 clawhub force，自修改 skill 用融合版；4. 信任充分授权，短平快直接执行，复杂任务拆分子任务处理；5. 对重复信息敏感但不投诉，收到两条相同提醒未投诉但需要主动修复。\n【值得沉淀】1. Pattern: doc-only-commitment — 说要做→文档写→cron 没建，约束：承诺配置后立即执行 openclaw cron add，文档和任务必须同步创建；2. Pattern: isolated session broadcast 400 — delivery mode 需设为 persistent-message，不是 none，已修复待今晚验证；3. Checkpoint Skill 方案已就绪，等待用户确认后安装。\n【明日行动】1. 今晚 22:00 观察自检推送是否正常（persistent-message 修复验证）；2. 确认 Checkpoint Skill 是否安装（下班后可能已回复）；3. 持续监控 P2P broadcast consecutiveErrors 是否归零；4. GitHub develop 分支每日 23:59 同步验证。",
+  "四栏内容": "【今日不足】1. 23:59自检cron timeout（consecutiveErrors=2）2. GitHub备份仍400错误（consecutiveErrors=1）3. cron scheduler触发时间混乱（应23:59，实际21:20）\n【用户观察】1. 信任充分授权 2. 对未收到非常敏感 3. 持续监控系统稳定性\n【值得沉淀】1. isolated session飞书400→改main session 2. cron scheduler触发时间异常→重启gateway 3. timeout后session未清理→runningAtMs不清除\n【今日行动】自检写入完成 | 22:00/下班/健身/学习推送均正常 | AI资讯rate_limit | GitHub备份400待修 | 23:59自检触发时间异常待查",
   "completed": true,
-  "skills_created": []
+  "skills_created": [],
+  "date": "2026-04-24",
+  "version": "1.0"
 }

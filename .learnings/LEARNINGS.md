@@ -66,3 +66,23 @@ cron 任务 delivery.mode="none" 会导致执行结果不推送给用户。今�
 ### Prevention
 创建 cron 任务时明确该任务是否需要用户看到结果——如果需要看到，delivery 必须是 announce。delivery=none 仅适用于纯后台任务（结果写文件、触发其他系统等）。
 
+---
+
+## [LRN-20260424-001] best_practice
+
+**Logged**: 2026-04-24T09:11:00+08:00
+**Priority**: high
+**Status**: active
+**Area**: skill-update
+
+### Summary
+自修改 marketplace skill 更新时的融合策略：**冲突听 Iris 的**。
+
+当 clawhub update 触发冲突（本地修改 vs 新版），由 Iris 自主判断融合方式：
+- SKILL.md instruction 部分：优先保留我的理解和定制化表述
+- scripts/：本地修改优先，新版逻辑作参考
+- 冲突时不过滤、不覆盖，用我的判断决定保留什么
+
+### Prevention
+skill 更新时若检测到冲突，不回退不跳过，自主融合后告知用户保留了哪些改动、吸收了哪些新内容。
+
