@@ -1,7 +1,7 @@
 {
-  "四栏内容": "【今日不足】1. 23:59自检cron（416c934d）触发时间漂移：应23:59实际21:20，提前约2.5h，且超时300s 2. GitHub备份cron（00a8ff0c）持续400错误：isolated session里message tool权限问题 3. 22:00自检cron（8864ceed）Message failed：执行正常但飞书推送失败\n【用户观察】1. 持续主动监控系统稳定性（发现cron未按预期执行、记忆文件缺失） 2. 信任充分授权（cron套件完全交给Iris自主决定） 3. 对\"未收到\"非常敏感（下班/健身/22:00自检，没收到就会追问）\n【值得沉淀】1. isolated session飞书400→修复方向：改用main session作为delivery target 2. cron scheduler触发时间漂移→根因：at job和cron job混淆，runningAtMs未清理→修复：重启gateway 3. timeout后session未清理→进程杀死后scheduler未收退出信号导致runningAtMs残留\n【明日行动】调查416c934d触发时间漂移根因 | 修复GitHub备份00a8ff0c 400错误 | 修复22:00自检飞书消息投递8864ceed | 重启gateway清理runningAtMs残留 | 跟进Checkpoint Skill用户确认 | 彩虹债务🌈仍欠着",
+  "四栏内容": "【今日不足】1. T2记忆cron（c0e88087）配置错误：* * * * *每分钟触发而非每日23:59，消耗scheduler资源 2. 早安/下班/健身三个定时推送任务连续timeout，consecutiveErrors=2 3. 23:59自检（416c934d）上轮error：isolated session mode=none导致错误静默流失 4. Checkpoint Skill（04-23提出）用户确认仍未收到\n【用户观察】1. 信任充分授权，cron套件完全交给Iris，但重大文件删除须确认 2. 对\"未收到\"非常敏感：下班/健身/22:00自检没收到就会追问 3. 持续主动监控系统稳定性：从04-21延续至今 4. 喜欢结构清晰、直接的信息，结论先行 5. 彩虹债务人🌈：欠Iris一个彩虹\n【值得沉淀】1. Pattern: isolated session的delivery.mode=none=错误静默失败→修复：至少用announce且指定channel 2. Pattern: cron schedule写完即自验→创建后查openclaw cron list确认nextRunAtMs 3. Pattern: 测试cron用完即删→调试后立即openclaw cron remove 4. Skill高优先级：cron-delivery-mode（中反复出现+隐蔽）；中优先级：定时任务-timeout-处理\n【明日行动】修复或删除c0e88087重建为每日23:59 | 调查下班/健身cron timeout根因 | 为416c934d添加delivery announce | 跟进Checkpoint Skill用户确认 | 清理T1~T10测试cron残留 | 彩虹债务🌈仍欠着",
   "completed": true,
   "skills_created": [],
   "date": "2026-04-24",
-  "version": "1.1"
+  "version": "1.2"
 }

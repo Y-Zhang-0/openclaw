@@ -47,9 +47,11 @@
 
 | 问题 | 状态 | 根因 |
 |------|------|------|
-| 22:00 自检飞书 Message failed | ⚠️ consecutiveErrors=1 | isolated session 飞书 channel auth 缺失 |
-| GitHub 备份 400 错误 | ❌ consecutiveErrors=1 | isolated session message tool 权限问题 |
-| 23:59 自检触发时间漂移 | ⚠️ 04-24 21:20 提前触发 2.5h | scheduler 把 at job 当 cron 触发，runningAtMs 未清理 |
+| isolated session P2P 飞书 400 错误 | ⚠️ 从 04-21 延续，部分 job 已绕过 | delivery mode=none 导致错误静默流失 |
+| T2记忆 cron（c0e88087）每分钟触发 | ⚠️ 04-24 发现 | schedule 错配为 `* * * * *`，应为 `59 23 * * *` |
+| 早安/下班/健身 cron timeout | ⚠️ consecutiveErrors=2 | 可能是 message 过长或 isolated session 冷启动慢 |
+| 23:59 自检（416c934d）error | ⚠️ 04-24 | mode=none 导致错误静默，需改为 announce |
+| Checkpoint Skill 等待确认 | ⏳ 04-23 提出，04-24 未回复 | 用户未确认，Iris 未执行 |
 | 416c934d timeout 后 session 未清理 | ⚠️ runningAtMs 残留 | 进程杀死后 scheduler 未收到退出信号 |
 
 ## Skill 沉淀记录
@@ -66,7 +68,9 @@
 
 | Skill | 状态 | 说明 |
 |------|------|------|
-| Checkpoint Skill | ⏳ 待确认（04-23 上午提出，用户至今未回复）| 方案已提出，未获确认 |
+| Checkpoint Skill | ⏳ 待确认（04-23 提出，04-24 未回复）| 方案已提出，未获确认 |
+| cron-delivery-mode | 🔍 待创建（高优先级）| isolated session 反复因 mode=none 静默失败 |
+| 定时任务-timeout-处理 | 🔍 待调查（中优先级）| 三个任务 timeout 有系统性原因 |
 
 ---
 

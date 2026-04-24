@@ -69,11 +69,15 @@
 |------|------|------|
 | Checkpoint Skill | ⏳ 待确认 | 方案已提出，用户未回复 |
 | 彩虹债务 | 🌈 欠着 | 还没还 |
-| 定时任务 timeout（下班/健身/23:59自检/GitHub备份）| ❌ error | 4个任务 consecutiveErrors=2，需优先修复 |
-| 23:59自检（416c934d）delivery=none | ❌ 需修复 | isolated session mode=none 静默失败，需改为 announce |
-| 23:59 GitHub备份（00a8ff0c）| ❌ error | 与23:59自检同秒触发可能有时序问题 |
-| cron scheduler bug | ⚠️ 需 gateway 重启 | 已上报 GitHub issue |
-| 22:00 自检（8864ceed）| ✅ ok | 2026-04-24 06:39 确认正常 |
+| 定时任务 timeout | ✅ 已修复 | 2026-04-24 晚：全部任务 timeout 改为 300s（自检/记忆 1800s），测试全部通过 |
+| isolated session 飞书 announce | ✅ 已修复 | delivery 全部配置为 announce/feishu 推送 |
+| AI 资讯 RSS 源 | ✅ 已重构 | 优先级调整为 r/singularity > r/AI_Agents > LocalLLaMA > HN > 等，共9个源 |
+| rss-reader scripts 清理 | ✅ 已完成 | ai-news-digest.sh 等脚本已删除，改用 node rss.js 直接调用 |
+| cron scheduler bug | ⚠️ 需监控 | 已上报 GitHub issue，gateway restart 可临时解决 |
+| 22:00 自检（8864ceed）| ✅ ok | 2026-04-24 确认正常 |
+| GitHub备份 23:59 | ✅ ok | 2026-04-24 晚测试通过，148s |
+| 📚每日学习推送 21:00 | ✅ ok | 2026-04-24 晚测试通过 |
+| 🤖AI资讯抓取 09:00 | ✅ ok | 2026-04-24 晚测试通过 |
 
 ---
 
@@ -82,8 +86,8 @@
 | Pattern | 说明 | 临时解法 |
 |---------|------|----------|
 | cron scheduler at jobs 卡死 | nextWakeAtMs 不更新，at jobs 不触发 | `openclaw gateway restart` |
-| isolated session 飞书 message 400 | delivery mode: persistent-message 可解 | 自检改用 main session 推送 |
-| isolated session delivery mode=none | 错误静默失败，无告警 | cron 任务的 isolated session 至少用 announce |
+| isolated session 飞书 announce 400 | announce 模式在 isolated session 里有时报 400 | 改用 delivery announce+feishu channel 可解 |
+| isolated session delivery mode=none | 错误静默失败，无告警 | cron 任务 delivery 设为 announce |
 | 同秒多 cron 任务触发 | 23:59 自检+备份同秒，session 启动排队 | 建议错开1-2秒或合并任务 |
-| 定时任务 timeout（下班/健身/23:59自检/GitHub备份）| consecutiveErrors=2，冷启动慢或 message 长 | 检查 message 长度或增加 timeoutSeconds |
+| isolated session 冷启动慢导致 timeout | LLM 冷启动 + 内容生成慢 | timeout 设为 300s，轻量任务可解决 |
 | 承诺的配置任务未执行 | doc-only-commitment，连续两天只写文档不建 cron | 承诺配置后立即执行 openclaw cron add |
