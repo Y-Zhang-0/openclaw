@@ -1,7 +1,7 @@
 {
-  "四栏内容": "【今日不足】1. 23:59自检cron timeout（consecutiveErrors=2）2. GitHub备份仍400错误（consecutiveErrors=1）3. cron scheduler触发时间混乱（应23:59，实际21:20）\n【用户观察】1. 信任充分授权 2. 对未收到非常敏感 3. 持续监控系统稳定性\n【值得沉淀】1. isolated session飞书400→改main session 2. cron scheduler触发时间异常→重启gateway 3. timeout后session未清理→runningAtMs不清除\n【今日行动】自检写入完成 | 22:00/下班/健身/学习推送均正常 | AI资讯rate_limit | GitHub备份400待修 | 23:59自检触发时间异常待查",
+  "四栏内容": "【今日不足】1. 23:59自检cron（416c934d）触发时间漂移：应23:59实际21:20，提前约2.5h，且超时300s 2. GitHub备份cron（00a8ff0c）持续400错误：isolated session里message tool权限问题 3. 22:00自检cron（8864ceed）Message failed：执行正常但飞书推送失败\n【用户观察】1. 持续主动监控系统稳定性（发现cron未按预期执行、记忆文件缺失） 2. 信任充分授权（cron套件完全交给Iris自主决定） 3. 对\"未收到\"非常敏感（下班/健身/22:00自检，没收到就会追问）\n【值得沉淀】1. isolated session飞书400→修复方向：改用main session作为delivery target 2. cron scheduler触发时间漂移→根因：at job和cron job混淆，runningAtMs未清理→修复：重启gateway 3. timeout后session未清理→进程杀死后scheduler未收退出信号导致runningAtMs残留\n【明日行动】调查416c934d触发时间漂移根因 | 修复GitHub备份00a8ff0c 400错误 | 修复22:00自检飞书消息投递8864ceed | 重启gateway清理runningAtMs残留 | 跟进Checkpoint Skill用户确认 | 彩虹债务🌈仍欠着",
   "completed": true,
   "skills_created": [],
   "date": "2026-04-24",
-  "version": "1.0"
+  "version": "1.1"
 }

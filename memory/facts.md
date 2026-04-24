@@ -47,7 +47,17 @@
 
 | 问题 | 状态 | 根因 |
 |------|------|------|
-| 22:00 自检 P2P 400 | ⚠️ 从 04-21 延续 | isolated session 飞书 message 权限/context 差异 |
+| 22:00 自检飞书 Message failed | ⚠️ consecutiveErrors=1 | isolated session 飞书 channel auth 缺失 |
+| GitHub 备份 400 错误 | ❌ consecutiveErrors=1 | isolated session message tool 权限问题 |
+| 23:59 自检触发时间漂移 | ⚠️ 04-24 21:20 提前触发 2.5h | scheduler 把 at job 当 cron 触发，runningAtMs 未清理 |
+| 416c934d timeout 后 session 未清理 | ⚠️ runningAtMs 残留 | 进程杀死后 scheduler 未收到退出信号 |
+
+## Skill 沉淀记录
+
+| Skill | 状态 | 日期 | 说明 |
+|------|------|------|------|
+| 自驱型 Agent 工作流 | ✅ 已创建 | 04-22 | heartbeat + WAL Protocol + 自主 Cron |
+| Checkpoint Pattern | ⏳ 待用户确认 | 04-24 | 还没收到用户回复 |
 | facts.md vs .learnings/ 路径不清 | ✅ 已明确 | facts.md = 高层提炼，.learnings/ = 原始日志 |
 
 ---
