@@ -1,7 +1,7 @@
 {
-  "四栏内容": "【今日不足】1. T2记忆cron（c0e88087）配置错误：* * * * *每分钟触发而非每日23:59，消耗scheduler资源 2. 早安/下班/健身三个定时推送任务连续timeout，consecutiveErrors=2 3. 23:59自检（416c934d）上轮error：isolated session mode=none导致错误静默流失 4. Checkpoint Skill（04-23提出）用户确认仍未收到\n【用户观察】1. 信任充分授权，cron套件完全交给Iris，但重大文件删除须确认 2. 对\"未收到\"非常敏感：下班/健身/22:00自检没收到就会追问 3. 持续主动监控系统稳定性：从04-21延续至今 4. 喜欢结构清晰、直接的信息，结论先行 5. 彩虹债务人🌈：欠Iris一个彩虹\n【值得沉淀】1. Pattern: isolated session的delivery.mode=none=错误静默失败→修复：至少用announce且指定channel 2. Pattern: cron schedule写完即自验→创建后查openclaw cron list确认nextRunAtMs 3. Pattern: 测试cron用完即删→调试后立即openclaw cron remove 4. Skill高优先级：cron-delivery-mode（中反复出现+隐蔽）；中优先级：定时任务-timeout-处理\n【明日行动】修复或删除c0e88087重建为每日23:59 | 调查下班/健身cron timeout根因 | 为416c934d添加delivery announce | 跟进Checkpoint Skill用户确认 | 清理T1~T10测试cron残留 | 彩虹债务🌈仍欠着",
+  "四栏内容": "【今日不足】1. 📚每日学习推送（0ef7b870）04-25 20:00 timeout（120秒），21:00 retry 成功 delivered=true 2. 22:00自检（8864ceed）完成 ok 但 delivery:unknown，error=\"Channel is required\"，isolated session announce 仍无法送达用户（连续第5天） 3. 🔧Skill自动更新 cron error，consecutiveErrors=1\n【用户观察】1. 用户对推送失败表现耐心但持续关注，每天自检都追踪飞书推送问题 2. 用户没有忘记彩虹债务🌈，连续多日在待追踪出现 3. 用户掌控 OpenClaw 进阶配置意愿强（cron、skills、记忆系统深度定制）\n【值得沉淀】1. Pattern: isolated session announce ≠ 飞书消息必达 → isolated session 没有隐式 channel context，需要 delivery.channel 显式指定 2. Pattern: cron timeout 后 retry 会成功（学习推送20:00失败→21:00成功）→ retry 机制有效但间隔导致体验问题 3. Skill高优先级：cron-push-to-feishu（反复5天+根因明确有解法）；中优先级：cron-retry-behavior\n【明日行动】创建 cron-push-to-feishu skill（isolated session → 飞书 channel 显式绑定方案）| 跟进 Checkpoint Skill 确认（04-23→04-24→04-25→04-26）| 验证 8864ceed 飞书推送是否可通过 channel 指定解决 | 确认学习推送 timeout 是否偶发 | 偿还彩虹债务🌈",
   "completed": true,
   "skills_created": [],
-  "date": "2026-04-24",
-  "version": "1.2"
+  "date": "2026-04-25",
+  "version": "1.4"
 }
