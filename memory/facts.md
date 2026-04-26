@@ -45,10 +45,20 @@
 
 | 问题 | 状态 | 根因 |
 |------|------|------|
+| GitHub备份/23:59自检 target=main | error | Main jobs require --system-event, cron不支持target=main |
 | cron-push-to-feishu（飞书推送） | 🔴 04-21→04-25连续5天 | isolated session announce 无隐式 channel context |
 | Checkpoint Skill 等待确认 | ⏳ 04-23→04-24→04-25→04-26 未回复 | 用户未确认 |
 | 🔧Skill自动更新 cron | ⚠️ error, consecutiveErrors=1 | 下个窗口观察 |
 | cron timeout retry 机制 | ✅ 已验证有效 | 学习推送20:00 timeout→21:00 retry成功 |
+
+---
+
+## 新发现问题（04-26 00:03 UTC+8）
+
+| 问题 | 说明 |
+|------|------|
+| Main jobs require --system-event | cron trigger 不支持 target=main，需改为 isolated 或加 system-event flag |
+| Unknown channel: feishu | isolated session 无法识别 feishu channel |
 
 ---
 
@@ -58,6 +68,7 @@
 |------|------|------|------|
 | 自驱型 Agent 工作流 | ✅ 已创建 | 04-22 | heartbeat + WAL Protocol + 自主 Cron |
 | facts.md vs .learnings/ 路径 | ✅ 已明确 | 04-24 | facts = 高层提炼，learnings = 原始日志 |
+| GitHub备份/23:59自检 target=main | error | Main jobs require --system-event, cron不支持target=main |
 | cron-push-to-feishu | 🔴 高优先级待创建 | 04-25 | isolated session announce ≠ 飞书消息必达，5天未解决 |
 | cron-retry-behavior | 🟡 中优先级待创建 | 04-25 | retry 机制透明化，减少用户困惑 |
 
