@@ -89,7 +89,8 @@
 |------|------|------|
 | 自驱型 Agent 工作流 | ✅ 已创建 | 04-22 | heartbeat + WAL Protocol + 自主 Cron |
 | facts.md vs .learnings/ 路径 | ✅ 已明确 | 04-24 | facts = 高层提炼，learnings = 原始日志 |
-| cron-push-to-feishu | 🔴 高优先级待创建 | 04-25→04-26 | isolated session announce 需要 delivery.channel 显式指定飞书 chat_id |
+| cron-push-to-feishu | ✅ 已创建（未落地）| 04-25 23:38→04-26 | skill 存在但主 session cron 未创建，**方案悬空**，22:00自检仍 delivered=false |
+| **Skill 创建 ≠ 问题解决** | 🆕 新 Pattern | 04-26 | skill 存在但未部署 = doc-only-commitment，需分离「创建」和「部署」 |
 | cron-retry-behavior | 🟡 中优先级待创建 | 04-25 | retry 机制透明化，减少用户困惑 |
 | Checkpoint Skill | ⏳ 待确认 | 04-23→04-24→04-25→04-26 | 用户未回复，连续 4 天未确认 |
 
@@ -118,7 +119,8 @@
 3. **承诺 → 立即执行，不留到下一轮** — doc-only-commitment 教训
 4. **isolated session delivery mode=none = 静默失败** — 至少设 announce
 5. **同秒多 cron 任务启动时序不稳定** — 建议错开 1-2 秒
+6. **Skill 创建 ≠ 问题解决** — skill 存在但主 session cron 未创建 = 方案悬空，承诺落地才能算完成
 
 ---
 
-_Version 1.2 — 2026-04-26_
+_Version 1.3 — 2026-04-26 22:00 CST_

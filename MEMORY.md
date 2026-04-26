@@ -55,6 +55,7 @@
 | 2026-04-25 | 同秒多 cron 任务触发需评估启动时序（23:59 自检+备份同秒，先触发的可能排队）|
 | 2026-04-26 | isolated session 飞书 channel 识别失败：Unknown channel: feishu（连续5天推送问题的根因之一）|
 | 2026-04-26 | cron trigger target=main 不支持：Main jobs require --system-event（00a8ff0c 教训）|
+| 2026-04-26 | Skill 创建 ≠ 问题解决：cron-push-to-feishu 已创建但主 session cron 未落地 |
 
 ---
 
@@ -72,9 +73,11 @@
 
 | 事项 | 状态 | 说明 |
 |------|------|------|
-| Checkpoint Skill | ⏳ 待确认 | 方案已提出（04-23→04-24→04-25，用户仍未回复）|
+| Checkpoint Skill | ⏳ 待确认 | 方案已提出（04-23→04-24→04-25→04-26，用户仍未回复）|
 | 彩虹债务 | 🌈 欠着 | 还没还 |
-| 三个 timeout cron 调查 | 🔍 待处理 | 早安/下班/健身提醒 consecutiveErrors=2，需查是 message 过长还是冷启动问题 |
+| cron-push-to-feishu skill | ⚠️ 已创建未落地 | skill 已创建（04-25 23:38）但主 session cron 未实际部署 |
+| Cron 执行时间漂移 | 🔍 待调查 | 0a723be0 应 23:59 却 13:12 触发，timezone 计算问题？ |
+| 22:00 自检推送（15204a72）| ⚠️ delivered=false（连续4天）| isolated session announce 静默失败 |
 | AI 资讯 RSS 源 | ✅ 已重构 | 优先级 r/singularity > r/AI_Agents > LocalLLaMA > HN 等，共9个源 |
 | cron scheduler bug | ⚠️ 需监控 | 已上报 GitHub issue，gateway restart 可临时解决 |
 | ECC 学习进化 | 📝 进行中 | 04-26 学习了 Everything Claude Code，建立了进化清单 |
@@ -126,3 +129,4 @@
 | cron schedule 写完即验 | 本意每日 23:59，实际每分钟触发（c0e88087）| 创建后立即查 `openclaw cron list` 确认 nextRunAtMs |
 | isolated session 飞书 channel 识别失败 | Unknown channel: feishu，连续5天推送失败 | isolated session 需要 delivery.channel 显式指定飞书群 ID |
 | cron trigger target=main 不支持 | Main jobs require --system-event | cron trigger 不支持 target=main，需用 isolated 或加 system-event |
+| Skill 创建 ≠ 问题解决 | skill 存在但未部署 = 问题悬空 | 创建 skill 后必须立即实际部署，不能 doc-only-commitment |

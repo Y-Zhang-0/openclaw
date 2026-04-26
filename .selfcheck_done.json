@@ -1,7 +1,13 @@
 {
-  "四栏内容": "【今日不足】1. 合并任务 0a723be0 执行时间异常：应在 23:59 触发，却在 13:12 执行（疑似 scheduler timezone 计算问题） 2. 22:00 自检推送（15204a72）持续 delivered=false，连续第 3+ 天，isolated session announce 静默失败 3. 测试 cron bdd63d5b 在 20 分钟内执行两次（1777174200 和 1777175401），疑似 consecutiveErrors retry 机制短时重复触发\n【用户观察】1. 用户对记忆连续性高度敏感，从 04-21 延续至今持续追踪推送失败问题 2. 用户偏好合并任务、顺序执行，已按此原则优化 3. 定时推送（早安/下班/健身/资讯）已稳定运行，用户无投诉 4. Checkpoint Skill 连续 4 天未获用户确认（04-23→04-24→04-25→04-26）\n【值得沉淀】1. Pattern: isolated session announce ≠ 飞书消息必达 → isolated session 没有隐式 channel context，需要 delivery.channel 显式指定飞书 chat_id（已知根因，待创建 skill） 2. Pattern: Cron 执行时间漂移 → 0a723be0 应 23:59 却 13:12 触发，疑似 scheduler timezone 配置问题 3. Pattern: 短时重复执行 → bdd63d5b 20 分钟内 2 次，疑似 consecutiveErrors retry 间隔配置过短 4. Skill 高优先级：cron-push-to-feishu（反复 5 天+根因明确）；中优先级：cron-retry-behavior\n【明日行动】1. 创建 cron-push-to-feishu skill（delivery.channel 显式绑定飞书 chat_id 方案） 2. 跟进 Checkpoint Skill 确认 3. 验证 15204a72 飞书推送是否可通过 channel 指定解决 4. 确认短时重复执行根因（consecutiveErrors retry 间隔配置） 5. 验证 scheduler timezone 配置是否正确",
+  "四栏内容": "【今日不足】1. cron-push-to-feishu 方案悬空：skill 已创建（04-25 23:38）但主 session cron 未实际创建，22:00 自检仍无法推送到飞书（连续第3+天 delivered=false）2. Cron 执行时间漂移未定位：0a723be0 应 23:59 却 13:12 触发，timezone 计算根因仍在调查 3. Checkpoint Skill 连续 4 天无用户确认（04-23→04-26）\n【用户观察】1. 用户对推送失败极度敏感（下班/健身/22:00 自检没收到就追问），连续多日追踪 delivery 状态 2. 用户偏好合并任务、顺序执行（已按此优化）3. 用户持续学习 OpenClaw 进阶用法 4. 用户主动追踪 Iris 承诺未兑现（Skill 落地、cron 修复）\n【值得沉淀】1. Pattern：Skill 创建 ≠ 问题解决 — cron-push-to-feishu skill 存在但主 session cron 未落地 = 问题悬空，需将「创建 skill」和「实际部署」分离，避免 doc-only-commitment 2. Pattern：isolated session announce 失败根解 — cron-push-to-feishu skill 方案：主 session cron 读取 .selfcheck_done.json 用 message 工具推送，需尽快落地 3. Cron 时间漂移：证据不足，建议下个版本加 scheduler 日志验证\n【明日行动】1. 创建主 session cron（push_selfcheck），读取 .selfcheck_done.json 用 message 工具发送到飞书群验证 delivery 2. 确认 Checkpoint Skill 状态（已悬空 4 天，要么落地要么告知用户）3. 继续追踪 22:00 自检推送 delivery 状态 4. Cron 时间漂移问题：如下次发生，加入 scheduler 日志验证",
   "completed": true,
   "skills_created": [],
+  "skills_pending": ["cron-push-to-feishu（主 session cron 未落地）"],
   "date": "2026-04-26",
-  "version": "1.5"
+  "version": "1.0",
+  "cron_delivery_issues": {
+    "22:00_selfcheck": "delivered=false 连续3+天",
+    "root_cause": "isolated session announce 没有隐式飞书 channel context",
+    "solution": "主 session cron 读取 .selfcheck_done.json 用 message 工具推送（cron-push-to-feishu skill 已创建但未落地）"
+  }
 }
