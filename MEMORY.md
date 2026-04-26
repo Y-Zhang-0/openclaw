@@ -75,18 +75,35 @@
 | Checkpoint Skill | ⏳ 待确认 | 方案已提出（04-23→04-24→04-25，用户仍未回复）|
 | 彩虹债务 | 🌈 欠着 | 还没还 |
 | 三个 timeout cron 调查 | 🔍 待处理 | 早安/下班/健身提醒 consecutiveErrors=2，需查是 message 过长还是冷启动问题 |
-| isolated session delivery mode=none | ✅ 已修复 | 416c934d 已改用 announce+feishu channel |
 | AI 资讯 RSS 源 | ✅ 已重构 | 优先级 r/singularity > r/AI_Agents > LocalLLaMA > HN 等，共9个源 |
-| rss-reader scripts 清理 | ✅ 已完成 | ai-news-digest.sh 等脚本已删除 |
 | cron scheduler bug | ⚠️ 需监控 | 已上报 GitHub issue，gateway restart 可临时解决 |
-| 22:00 自检（15204a72）| ⚠️ error | 04-25 22:00 新增 error，consecutiveErrors=1，需观察 |
-| 📚每日学习推送 21:00（0ef7b870）| ⚠️ error | 04-25 20:00 error，consecutiveErrors=1，需观察 |
-| 🔧 Skill自动更新（b389af77）| ⚠️ error | 04-25 04:00 error，consecutiveErrors=1，下次 04-26 04:00 |
-| GitHub备份 23:59（00a8ff0c）| ❌ error | 04-26: Main jobs require --system-event，cron不支持target=main |
-| 🤖AI资讯抓取 09:00 | ✅ ok | 任务 ID 85690ac6 |
-| 08:00 早安问候 | ✅ ok | 04-24 delivered=true |
-| 19:00 下班提醒 | ✅ ok | 04-24 delivered=true |
-| 19:30 健身提醒 | ✅ ok | 04-24 delivered=true |
+| ECC 学习进化 | 📝 进行中 | 04-26 学习了 Everything Claude Code，建立了进化清单 |
+| Skill 目录重构 | 📋 待执行 | 按 ECC 模式重构 skills 目录结构（见 ecc-learning-2026-04-26.md）|
+
+---
+
+## 04-26 cron 修复记录
+
+| 任务 | 旧ID | 新ID | 状态 |
+|------|------|------|------|
+| 📚每日学习推送 | 0ef7b870（error） | 34fd19bd | ✅ 已重建融合版 |
+| ⏰早安问候 | d5746631（error） | 31eda061 | ✅ 已重建融合版 |
+| 🤖AI资讯抓取 | 85690ac6（error） | 1f798f89 | ✅ 已重建融合版 |
+| 🔧Skill自动更新 | b389af77（error） | 54abdcf0 | ✅ 已重建融合版（加入--force+融合策略）|
+| 📝每日记忆+备份 | 416c934d+00a8ff0c | 56bb2391 | ✅ 合并为一个任务，推送 develop 分支 |
+| 📤自检推送-主Session | 28c74745（broken） | - | ✅ 已删除，配置损坏无修复价值 |
+| 22:00 自检（15204a72）| - | - | ✅ ok，保持不变 |
+| 23:59 自检+备份（56bb2391）| - | - | ✅ idle，保持不变 |
+
+---
+
+## ECC 关键学习点（详见 memory/ecc-learning-2026-04-26.md）
+
+- 子代理编排模式：主代理只做编排，任务委派给专用子代理
+- 持续自动学习：会话结束自动提取 Pattern 到 Skills
+- Hook 触发自动化：PreToolUse/PostToolUse/UserPromptSubmit/Stop/PreCompact
+- Token 意识：简单任务用轻量模型，非所有任务都用最强模型
+- 规则分层：rules/common/ + rules/语言专用/
 
 ---
 
@@ -95,7 +112,12 @@
 | Pattern | 说明 | 临时解法 |
 |---------|------|----------|
 | cron scheduler at jobs 卡死 | nextWakeAtMs 不更新，at jobs 不触发 | `openclaw gateway restart` |
-| isolated session 飞书 announce 400 | announce 模式在 isolated session 里有时报 400 | 改用 delivery announce+feishu channel 可解 |
+| isolated session announce 静默失败 | `cron run` 触发绕过了 scheduler announce 推送机制 | 必须用 cron 表达式触发，不能用 `cron run` |
+| isolated session delivery mode=none | 错误静默失败，无告警 | cron 任务 delivery 设为 announce |
+| 同秒多 cron 任务触发 | 23:59 自检+备份同秒，session 启动排队 | 合并为顺序执行的一个任务 |
+| cron trigger target=main 不支持 | Main jobs require --system-event | 改用 isolated session |
+| `cron run` ≠ 定时触发 | `cron run` 直接执行，跳过 scheduler announce | 验证任务需用 cron 表达式改时间触发 |
+| git push 到 master | 日常备份应推送到 develop 分支 | 备份命令改为 `git push origin develop` |
 | isolated session delivery mode=none | 错误静默失败，无告警，416c934d 教训 | cron 任务 delivery 设为 announce |
 | 同秒多 cron 任务触发 | 23:59 自检+备份同秒，session 启动排队 | 建议错开1-2秒或合并任务 |
 | isolated session 冷启动慢导致 timeout | LLM 冷启动 + 内容生成慢 | timeout 设为 300s，轻量任务可解决 |
