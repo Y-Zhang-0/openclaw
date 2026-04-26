@@ -74,7 +74,26 @@
 
 ---
 
-## 系统故障 Pattern（Apr 25 更新）
+## 新发现问题（04-26 更新）
+
+| 问题 | 说明 |
+|------|------|
+| Main jobs require --system-event | cron trigger 不支持 target=main，需改为 isolated 或加 system-event flag |
+| Unknown channel: feishu | isolated session 无法识别 feishu channel |
+| Cron 执行时间漂移 | 0a723be0 应在 23:59 却在 13:12 触发，疑似 timezone 计算问题 |
+| 短时重复执行 | bdd63d5b 在 20 分钟内跑了两次，疑似 consecutiveErrors retry 机制静默重试 |
+
+## Skill 沉淀记录
+
+| Skill | 状态 | 日期 | 说明 |
+|------|------|------|
+| 自驱型 Agent 工作流 | ✅ 已创建 | 04-22 | heartbeat + WAL Protocol + 自主 Cron |
+| facts.md vs .learnings/ 路径 | ✅ 已明确 | 04-24 | facts = 高层提炼，learnings = 原始日志 |
+| cron-push-to-feishu | 🔴 高优先级待创建 | 04-25→04-26 | isolated session announce 需要 delivery.channel 显式指定飞书 chat_id |
+| cron-retry-behavior | 🟡 中优先级待创建 | 04-25 | retry 机制透明化，减少用户困惑 |
+| Checkpoint Skill | ⏳ 待确认 | 04-23→04-24→04-25→04-26 | 用户未回复，连续 4 天未确认 |
+
+## 系统故障 Pattern（Apr 26 更新）
 
 | Pattern | 临时解法 |
 |---------|----------|
@@ -82,16 +101,13 @@
 | isolated session delivery mode=none | cron 任务 delivery 设为 announce |
 | 同秒多 cron 任务启动时序不稳定 | 建议错开 1-2 秒或合并任务 |
 | isolated session announce ≠ 飞书消息必达 | **需要 delivery.channel 显式指定** |
-| cron timeout 后 retry 成功 | retry 机制本身有效，但 retry 间隔影响体验 |
+| cron timeout 后 retry 会成功 | retry 机制有效但 retry 间隔（20:00→21:00 整整 1 小时）导致体验问题 |
+| Cron 执行时间漂移 | 0a723be0 应 23:59 却 13:12 触发，需验证 scheduler timezone 配置 |
+| 短时重复执行（20min内2次）| 疑似 consecutiveErrors retry 静默触发，需确认 retry 间隔配置 |
 
 ---
 
-## Apr 24-25 连续自检摘要
-
-| 日期 | 自检触发 | 关键发现 |
-|------|----------|----------|
-| 04-24 | 23:59 cron | T2记忆 cron 已移除；下班/健身/23:59自检全部 delivered=true |
-| 04-25 | 23:59 cron | 三种 timeout cron consecutiveErrors=2；23:59 自检 delivery mode=none 已修复 |
+| 04-26 | 13:12（异常触发）| 自检+备份合并任务首次验证；22:00自检持续 delivered=false（连续3天+）；新增 Cron 执行时间漂移和短时重复执行 Pattern |
 
 ---
 
@@ -105,4 +121,4 @@
 
 ---
 
-_Version 1.1 — 2026-04-25_
+_Version 1.2 — 2026-04-26_
