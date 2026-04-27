@@ -112,6 +112,45 @@
 
 ---
 
+## 新发现问题（04-27 更新）
+
+| 问题 | 说明 |
+|------|------|
+| **cc-switch relay 模型虚标** | relay 静默替换 opus 4.7→4.6，用户有截图证据 |
+| **cron timeout 默认30s 对长任务严重不足** | 6个任务需改为 300s 才正常，已修复 |
+| Checkpoint Skill | 连续5天无确认，主动告知用户动作也未执行 |
+
+## Skill 沉淀记录
+
+| Skill | 状态 | 日期 | 说明 |
+|------|------|------|------|
+| 自驱型 Agent 工作流 | ✅ 已创建 | 04-22 | heartbeat + WAL Protocol + 自主 Cron |
+| facts.md vs .learnings/ 路径 | ✅ 已明确 | 04-24 | facts = 高层提炼，learnings = 原始日志 |
+| cron-push-to-feishu | ⚠️ 悬空 | 04-25 | skill 存在但主 session cron 未创建，22:00自检仍 delivered=false |
+| **Skill 创建 ≠ 问题解决** | ✅ Pattern 已沉淀 | 04-26 | skill 存在但未部署 = doc-only-commitment |
+| cron-retry-behavior | ✅ Pattern 已验证 | 04-27 | retry 有效但间隔1h体验差，timeout 修复后减少 retry 触发 |
+| **cron timeout 模板规范** | 🆕 新 Pattern | 04-27 | 非即时任务 timeout 至少 300s，不使用默认30s |
+| **relay 模型虚标检测** | 🆕 新 Pattern | 04-27 | session 日志 model 字段 vs 配置不符 = relay 问题，用户有截图证据 |
+| Checkpoint Skill | ⏳ 连续5天未确认 | 04-23→04-27 | 需主动联系用户确认是否还需要 |
+
+---
+
+## 配置状态（Apr 27 更新）
+
+| 组件 | 状态 | 说明 |
+|------|------|------|
+| 08:00 早安问候 | ✅ ok | timeout=300s（已修复）|
+| 09:00 AI 资讯 | ✅ ok | timeout=300s（已修复）|
+| 19:00 下班提醒 | ✅ ok | timeout=300s |
+| 19:30 健身提醒 | ✅ ok | timeout=300s |
+| 21:00 学习推送 | ✅ ok | timeout=300s（已修复）|
+| 22:00 自检 | ⚠️ delivered=false（连续5天）| isolated announce 缺显式 delivery.channel |
+| 23:59 自检+备份 | ✅ ok | timeout=300s（已修复），remote 为空待初始化 |
+| Skill 自动更新 | ✅ ok | timeout=300s（已修复）|
+| 周报生成 | ✅ ok | timeout=300s（已修复）|
+
+---
+
 ## 学到的教训
 
 1. **删除文件前必须确认备份** — 没有证据不能删除记忆文件
@@ -120,7 +159,9 @@
 4. **isolated session delivery mode=none = 静默失败** — 至少设 announce
 5. **同秒多 cron 任务启动时序不稳定** — 建议错开 1-2 秒
 6. **Skill 创建 ≠ 问题解决** — skill 存在但主 session cron 未创建 = 方案悬空，承诺落地才能算完成
+7. **cron timeout 默认30s 对长任务严重不足** — 非即时任务（抓取/推送/报告）至少 300s
+8. **relay 服务模型虚标** — session 日志 model ≠ 配置 model，需对比实际使用记录验证
 
 ---
 
-_Version 1.3 — 2026-04-26 22:00 CST_
+_Version 1.4 — 2026-04-27 22:00 CST_

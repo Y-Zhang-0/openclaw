@@ -73,11 +73,11 @@
 
 | 事项 | 状态 | 说明 |
 |------|------|------|
-| Checkpoint Skill | ⏳ 待确认 | 方案已提出（04-23→04-24→04-25→04-26，用户仍未回复）|
+| Checkpoint Skill | ⏳ 待确认 | 方案已提出（04-23→04-24→04-25→04-26→04-27，用户仍未回复）|
 | 彩虹债务 | 🌈 欠着 | 还没还 |
 | cron-push-to-feishu skill | ⚠️ 已创建未落地 | skill 已创建（04-25 23:38）但主 session cron 未实际部署 |
 | Cron 执行时间漂移 | 🔍 待调查 | 0a723be0 应 23:59 却 13:12 触发，timezone 计算问题？ |
-| 22:00 自检推送（15204a72）| ⚠️ delivered=false（连续4天）| isolated session announce 静默失败 |
+| 22:00 自检推送（15204a72）| 🔴 error（连续5天+失败）| isolated session announce 静默失败，已升至 error 状态 |
 | AI 资讯 RSS 源 | ✅ 已重构 | 优先级 r/singularity > r/AI_Agents > LocalLLaMA > HN 等，共9个源 |
 | cron scheduler bug | ⚠️ 需监控 | 已上报 GitHub issue，gateway restart 可临时解决 |
 | ECC 学习进化 | 📝 进行中 | 04-26 学习了 Everything Claude Code，建立了进化清单 |
@@ -125,8 +125,10 @@
 | 同秒多 cron 任务触发 | 23:59 自检+备份同秒，session 启动排队 | 建议错开1-2秒或合并任务 |
 | isolated session 冷启动慢导致 timeout | LLM 冷启动 + 内容生成慢 | timeout 设为 300s，轻量任务可解决 |
 | 承诺的配置任务未执行 | doc-only-commitment，连续两天只写文档不建 cron | 承诺配置后立即执行 openclaw cron add |
+| 承诺悬空超过3天 | skill/cron 方案存在但未落地，用户没催 | 主动告知用户状态，不等用户来问 |
 | isolated session announce ≠ 一定能送达 | delivery=announce 时 message tool 仍有概率失败 | 主 session 中转或 persistent-message 模式 |
 | cron schedule 写完即验 | 本意每日 23:59，实际每分钟触发（c0e88087）| 创建后立即查 `openclaw cron list` 确认 nextRunAtMs |
 | isolated session 飞书 channel 识别失败 | Unknown channel: feishu，连续5天推送失败 | isolated session 需要 delivery.channel 显式指定飞书群 ID |
 | cron trigger target=main 不支持 | Main jobs require --system-event | cron trigger 不支持 target=main，需用 isolated 或加 system-event |
 | Skill 创建 ≠ 问题解决 | skill 存在但未部署 = 问题悬空 | 创建 skill 后必须立即实际部署，不能 doc-only-commitment |
+| 主 session cron 无法读 .selfcheck_done.json | isolated announce 连续失败，sessionTarget="current" 方案待评估 | 待验证 sessionTarget="current" 是否能读文件并用 message 推送 |
