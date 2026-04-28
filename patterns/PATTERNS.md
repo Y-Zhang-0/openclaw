@@ -1,75 +1,89 @@
-# Patterns — 持续学习模式库
+# PATTERNS.md — 核心 Patterns（高/中置信度）
 
-> 每次成功的问题解决都提取成 Pattern，保存到这里
-> 置信度评分机制：重复使用3次以上 + 无错误 = 高置信度
-
----
-
-## Pattern 格式
-
-```markdown
-## [PAT-YYYYMMDD-NNN] pattern-name
-
-- **场景**：什么时候用这个 Pattern
-- **做法**：具体操作步骤
-- **置信度**：高 / 中 / 低
-- **使用次数**：N
-- **上次使用**：YYYY-MM-DD
-- **来源**：ECC融合 / 自检发现 / 用户指导
-
----
-```
+> ECC 持续学习机制：每次成功问题解决后提取 Pattern
+> 置信度：高（3次以上+无错）/ 中（1-2次）/ 低（待验证）
 
 ---
 
-## 高置信度 Patterns（已验证3次以上）
-
-### PAT-20260426-001 主代理只做编排
-- **场景**：收到复杂任务时
-- **做法**：判断是否需要委派，能拆就拆给子代理，主代理不亲自执行
-- **置信度**：高
-- **使用次数**：5
-- **来源**：ECC融合
-
-### PAT-20260426-002 简单任务用轻量模式
-- **场景**：确认、回复、简单搜索
-- **做法**：用 minimax/MiniMax-M2 而不是大模型，节省 token
-- **置信度**：高
-- **使用次数**：8
-- **来源**：ECC融合
-
-### PAT-20260426-003 会话结束自动保存记忆
-- **场景**：每次会话结束时
-- **做法**：自动提取关键信息到 memory/daily/，不依赖手动自检
-- **置信度**：中
-- **使用次数**：3
-- **来源**：ECC融合
-
-### PAT-20260426-004 交付前自验证
-- **场景**：完成任务前
-- **做法**：检查点回顾，确认「什么叫完成」
-- **置信度**：中
-- **使用次数**：4
-- **来源**：ECC融合
+# Pattern: cron-channel-loss-recurring
+- 场景：isolated session delivery channel 丢失，飞书推送连续失败
+- 做法：`openclaw gateway restart` 临时解决；长期需修复 isolated session channel 识别问题
+- 置信度：高
+- 使用次数：5+
+- 上次使用：2026-04-26
 
 ---
 
-## 中置信度 Patterns（已验证1-2次）
-
-### PAT-20260426-005 破坏性操作trash优先
-- **场景**：需要删除文件时
-- **做法**：用 trash 而不是 rm，可恢复 > 永久消失
-- **置信度**：高
-- **使用次数**：2
-- **来源**：用户指导
-
-### PAT-20260426-006 Cron任务同秒避免
-- **场景**：设置定时任务时
-- **做法**：避免同一秒触发多个任务，错开至少2秒
-- **置信度**：高
-- **使用次数**：2
-- **来源**：自检发现
+# Pattern: doc-only-commitment
+- 场景：承诺配置 cron/skill 后只写文档，未实际执行 `openclaw cron add`
+- 做法：承诺配置后**立即执行** `openclaw cron add`，不能只写文档不落地
+- 置信度：高
+- 使用次数：3+
+- 上次使用：2026-04-26
 
 ---
 
-_持续更新，每次成功的问题解决后提取_
+# Pattern: cron-scheduler-at-stuck
+- 场景：cron scheduler at jobs 卡死，nextWakeAtMs 不更新，任务不触发
+- 做法：`openclaw gateway restart` 临时解决；关注 GitHub issue 跟踪
+- 置信度：高
+- 使用次数：3+
+- 上次使用：2026-04-26
+
+---
+
+# Pattern: isolated-session-delivery-none-fail
+- 场景：cron 任务 delivery 设为 none 时错误静默失败，无任何告警
+- 做法：cron 任务 delivery 必须设为 `announce`，不能设为 `none`
+- 置信度：高
+- 使用次数：2
+- 上次使用：2026-04-25
+
+---
+
+# Pattern: cron-run-vs-cron-trigger
+- 场景：验证 cron 任务是否正确配置时，用 `cron run` 直接执行不等于定时触发
+- 做法：验证任务需用 cron 表达式改时间触发，不能用 `cron run` 代替
+- 置信度：中
+- 使用次数：2
+- 上次使用：2026-04-26
+
+---
+
+# Pattern: isolated-session-feishu-channel-unknown
+- 场景：isolated session 飞书 channel 识别失败，报错 "Unknown channel: feishu"
+- 做法：isolated session 需要 delivery.channel 显式指定飞书群 ID，不能用 "feishu" 简称
+- 置信度：高
+- 使用次数：5+
+- 上次使用：2026-04-26
+
+---
+
+# Pattern: cron-trigger-target-main-unsupported
+- 场景：cron trigger 配置 target=main 报错 "Main jobs require --system-event"
+- 做法：改用 isolated session，不支持 target=main
+- 置信度：中
+- 使用次数：2
+- 上次使用：2026-04-26
+
+---
+
+# Pattern: git-hard-reset-data-loss
+- 场景：执行 `git reset --hard` 会丢失未 commit 的修改
+- 做法：操作前必须确认工作区状态，用 `git status` 检查
+- 置信度：高
+- 使用次数：1
+- 上次使用：2026-04-23
+
+---
+
+# Pattern: backup-to-develop-branch
+- 场景：日常备份推送到 master 分支会导致版本混乱
+- 做法：备份命令用 `git push origin develop`，不是 master
+- 置信度：中
+- 使用次数：2
+- 上次使用：2026-04-26
+
+---
+
+_最后更新：2026-04-28_
