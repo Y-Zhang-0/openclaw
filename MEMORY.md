@@ -55,7 +55,7 @@
 | 2026-04-25 | 同秒多 cron 任务触发需评估启动时序（23:59 自检+备份同秒，先触发的可能排队）|
 | 2026-04-26 | isolated session 飞书 channel 识别失败：Unknown channel: feishu（连续5天推送问题的根因之一）|
 | 2026-04-26 | cron trigger target=main 不支持：Main jobs require --system-event（00a8ff0c 教训）|
-| 2026-04-26 | Skill 创建 ≠ 问题解决：cron-push-to-feishu 已创建但主 session cron 未落地 |
+| 2026-04-26 | Skill 创建 ≠ 问题解决：cron-push-to-feishu 已删除，Checkpoint 已放弃 |
 
 ---
 
