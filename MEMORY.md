@@ -188,3 +188,38 @@
 ---
 
 _Version 1.7 — 2026-04-29（04-28 记忆补写 + gateway 重启故障完整记录）_
+
+---
+
+## ECC + Proactive Agent 融合完成（2026-04-29 15:38）
+
+### 本轮完成的内容
+
+| 项目 | 说明 |
+|------|------|
+| Working Buffer | WAL Protocol 实现，复杂任务分阶段缓冲到 `memory/working-buffer/` |
+| LEARNINGS.md 更新 | 新增 2 条 learnings（gateway restart + subagent delegation） |
+| PATTERNS.md 更新 | 新增 3 个 patterns（含 subagent-delegation-slack） |
+| agent-autopilot 理解 | heartbeat-driven 工作流，与 HEARTBEAT.md 融合 |
+
+### 学习来源
+
+1. **ECC（Everything Claude Code）** — 规则分层、自验证循环、子代理委派
+2. **Proactive Agent（Hal Stack）** — WAL Protocol、Working Buffer、Compaction Recovery
+3. **self-improving-agent** — .learnings/ 体系（已存在，直接利用）
+4. **agent-autopilot** — heartbeat-driven 自驱动工作流
+
+### 已整合进 rules/ 和 AGENTS.md
+
+- rules/common/00-agents.md — 委派原则
+- rules/common/patterns.md — Pattern 管理
+- rules/common/security.md — 安全红线
+- rules/common/working-buffer.md — WAL Protocol 实现
+- rules/zh/00-style.md — 中文风格
+
+### 待强化习惯
+
+1. **委派前先问**："这个适合委派给 iris-* 吗？"
+2. **复杂任务建 buffer**：超过 3 步或预计 >10 分钟 → 建 working-buffer
+3. **每次成功解决后更新 PATTERNS.md count**
+4. **token 意识**：简单问题简短回，不浪费
