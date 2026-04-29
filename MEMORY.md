@@ -132,3 +132,59 @@
 | cron trigger target=main 不支持 | Main jobs require --system-event | cron trigger 不支持 target=main，需用 isolated 或加 system-event |
 | Skill 创建 ≠ 问题解决 | skill 存在但未部署 = 问题悬空 | 创建 skill 后必须立即实际部署，不能 doc-only-commitment |
 | 主 session cron 无法读 .selfcheck_done.json | isolated announce 连续失败，sessionTarget="current" 方案待评估 | 待验证 sessionTarget="current" 是否能读文件并用 message 推送 |
+
+---
+
+## 04-29 记忆更新（13:32 CST 整理）
+
+### 网关重启故障完整分析
+
+**现象：**
+- 每次 gateway 重启后，session 进入 zombie 态——状态显示 running 但实际断开
+- 艾特我不回复，需要再艾特一次才能唤醒新 session
+- 手动 `systemctl restart` 两次才能恢复（第一次 restart 后依然沉默）
+
+**根因：**
+- `openclaw gateway restart` 只重启进程，不重建 session 连接
+- `systemctl --user restart` 是完整重启（kill + start），但 session 依然不能在重启后自动恢复
+- gateway 活了 ≠ agent 活了；session 需要收到外部消息才能唤醒
+
+**验证结果（04-29 12:04）：**
+- pid 42598 → 43220，证实 gateway 确实重启了
+- 重启后我沉默了约 5 分钟，直到用户艾特才醒
+
+**修复方案：**
+- Watchdog 脚本已改用 `systemctl --user restart`（完整重启）
+- 但 session 自动恢复问题仍无内置解法
+- 建议：gateway 重启后我发一条消息给自己作为心跳，触发新 session 创建
+- ⚠️ 心跳 cron 尚未创建（04-29 11:47 询问用户，未获回复）
+
+### 04-29 其他修复
+
+| 项目 | 状态 |
+|------|------|
+| 时区修复 | ✅ systemd TZ=Asia/Shanghai 已加 |
+| Watchdog | ✅ 已改 systemctl restart，每小时一次 |
+| Gateway OK 检测 | ✅ 日志正常，无异常 |
+| 04-28 记忆文件 | ✅ 已补写（2026-04-28.md） |
+
+### Watchdog 测试日志（04-29）
+
+```
+11:40:14 Gateway OK
+12:00:04 Gateway OK
+12:03:35 Gateway OK
+```
+
+---
+
+## Session 管理发现
+
+- Session key: agent:main:feishu:group:oc_73d105570c642ea813368386e661801e
+- 状态: running（但重启后实际已断开）
+- 重启后需要外部触发（@）才能重建连接
+- 无内置"重启后自动恢复"机制
+
+---
+
+_Version 1.7 — 2026-04-29（04-28 记忆补写 + gateway 重启故障完整记录）_
