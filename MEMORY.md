@@ -73,9 +73,9 @@
 
 | 事项 | 状态 | 说明 |
 |------|------|------|
-| Checkpoint Skill | ⏳ 待确认 | 方案已提出（04-23→04-24→04-25→04-26→04-27，用户仍未回复）|
+
 | 彩虹债务 | 🌈 欠着 | 还没还 |
-| cron-push-to-feishu skill | ⚠️ 已创建未落地 | skill 已创建（04-25 23:38）但主 session cron 未实际部署 |
+
 | Cron 执行时间漂移 | 🔍 待调查 | 0a723be0 应 23:59 却 13:12 触发，timezone 计算问题？ |
 | 22:00 自检推送（15204a72）| 🔴 error（连续5天+失败）| isolated session announce 静默失败，已升至 error 状态 |
 | AI 资讯 RSS 源 | ✅ 已重构 | 优先级 r/singularity > r/AI_Agents > LocalLLaMA > HN 等，共9个源 |
