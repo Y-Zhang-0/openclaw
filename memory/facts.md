@@ -118,7 +118,10 @@
 |------|------|
 | **cc-switch relay 模型虚标** | relay 静默替换 opus 4.7→4.6，用户有截图证据 |
 | **cron timeout 默认30s 对长任务严重不足** | 6个任务需改为 300s 才正常，已修复 |
-| Checkpoint Skill | 连续5天无确认，主动告知用户动作也未执行 |
+| **cron timeout 默认30s 对长任务严重不足** | 6个任务需改为 300s 才正常，已修复 |
+| Checkpoint Skill | **连续7天无确认**（04-23首提），主动询问后仍未回复 |
+| **04-28 记忆文件缺失** | 04-28 cron 有执行记录但无 daily 文件，04-29 自检发现 |
+| **cron 执行成功 ≠ 用户收到** | feishu push 连续 8+ 天 delivered=false，announce 缺 delivery.channel |
 
 ## Skill 沉淀记录
 
@@ -164,4 +167,12 @@
 
 ---
 
-_Version 1.4 — 2026-04-27 22:00 CST_
+_Version 1.5 — 2026-04-29 09:18 CST_
+
+---
+
+## 04-29 自检补充
+
+- Checkpoint Skill 连续7天未确认（04-23→04-29），需直接询问用户是否还需要
+- feishu push 22:00 自检连续8天 delivered=false，cron 推送机制仍未实际落地
+- 04-28 记忆文件缺失，已补写至 2026-04-29.md

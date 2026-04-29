@@ -1,7 +1,7 @@
 {
-  "四栏内容": "【今日不足】1. 6个cron任务timeout配置错误（默认30s，对长任务严重不足），下班/健身/学习推送首次均失败，靠1h间隔retry补救；2. 22:00自检（15204a72）连续第5天delivered=false，cron-push-to-feishu skill悬空未落地；3. Checkpoint Skill连续5天无用户确认，主动告知动作也未执行。\n\n【用户观察】1. 技术深度强、独立分析能力强：能自主抓cc-switch日志、对比配置和实际行为、发现relay静默替换模型（opus 4.7→4.6）并截图保留证据；2. 主动要求改进系统配置（主动询问cron timeout值）；3. 对relay类工具有不信任感增加的趋势。\n\n【值得沉淀】Pattern-relay模型虚标检测：场景=使用relay服务时session日志model字段与配置不符，做法=检查session日志model vs 配置+截图stats对比，置信度=高（1次实锤，有截图证据1908a8f5.jpg）；Pattern-cron timeout模板规范：场景=创建新cron任务，做法=非即时任务timeout至少300s，置信度=高（3次+ timeout问题）；Pattern-doc-only-commitment升级版：skill存在但未部署≠问题解决，承诺配置后立即执行并验证nextRunAtMs。\n\n【明日行动】1. 22:00自检推送：给用户明确状态说明+建议方案（飞书channel显式配置或改main session模式）；2. Checkpoint Skill：主动询问用户是否还需要（连续5天未回复）；3. GitHub backup remote为空待初始化；4. cc-switch relay虚标：告知用户实锤结论+建议（换relay/投诉/接受）；5. 彩虹债务继续欠着。",
+  "四栏内容": "【今日不足】1. 无用户对话：cron 执行两次（04-28、04-29），均为 HEARTBEAT_OK，无实际用户输入；2. 04-28 记忆文件缺失：当日 cron 有执行记录但 memory/daily/2026-04-28.md 不存在，记忆断层；3. feishu push 推送悬空：22:00 自检连续 8+ 天 delivered=false，skill 已存在但 cron 推送机制未实际落地；4. Checkpoint Skill 超长等待：04-23 首提，连续 7 天未获用户确认。\n\n【用户观察】1. 用户在 04-28、04-29 未主动发起对话，cron 任务在无干预情况下自主运行；2. 缺乏用户反馈意味着无法判断 cron 输出是否真实到达用户手中；3. 04-28 cron 记录显示 AI 资讯、下班提醒、健身提醒均有 delivered=true，但无法确认是 cron 投递成功还是用户实际阅读。\n\n【值得沉淀】Pattern-feishu-push-delivery-channel：场景=飞书推送做 isolated announce，做法=必须显式指定 delivery.channel=feishu，否则 announce 无隐式 channel context，置信度=高（连续8天+）；Pattern-无反馈≠没问题：连续 HEARTBEAT_OK 可能是真的没问题，也可能是所有输出都静默失败，需主动确认；Pattern-skill悬空升级：skill 存在但 cron 未创建 = 悬空8天，已成为 known issue 但长期不行动，需设置落地 deadline。\n\n【明日行动】1. 主动告知用户 04-28 cron 执行情况，确认飞书推送是否真实到达；2. Checkpoint Skill：直接询问用户是否还需要（连续7天未回复，给出明确选项）；3. feishu push：给出明确结论和可执行的下一步（不要再拖）；4. 补写 memory/daily/2026-04-28.md（补充记录04-28 cron 执行日志）。",
   "completed": true,
   "skills_created": [],
-  "date": "2026-04-27",
-  "自检版本": "22:00 CST 实时监控版"
+  "date": "2026-04-29",
+  "自检版本": "09:18 CST 实时监控版"
 }
