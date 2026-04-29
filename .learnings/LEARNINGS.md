@@ -86,3 +86,43 @@ cron 任务 delivery.mode="none" 会导致执行结果不推送给用户。今�
 ### Prevention
 skill 更新时若检测到冲突，不回退不跳过，自主融合后告知用户保留了哪些改动、吸收了哪些新内容。
 
+
+---
+
+## [LRN-20260429-001] insight
+
+**Logged**: 2026-04-29T15:36:00+08:00
+**Priority**: high
+**Status**: active
+**Area**: system/reliability
+
+### Summary
+Gateway 重启后 session 不会自动恢复——`openclaw gateway restart` 只重启进程，不重建 session 连接；需要用 `systemctl --user restart` 才能完整重启。
+
+但即使完整重启，session 也需要外部消息触发（@）才能唤醒，无法自动重连。这是 session 管理的设计问题，没有内置解决方案。
+
+### Prevention
+- Watchdog 检测到 gateway 挂了 → 用 `systemctl --user restart` 而不是 `openclaw gateway restart`
+- Gateway 重启后 → 需要用户 @ 我 或 心跳cron 发消息 才能恢复
+- 不要在用户活跃时随意重启 gateway，会导致 session 断开
+
+---
+
+## [LRN-20260429-002] best_practice
+
+**Logged**: 2026-04-29T15:36:00+08:00
+**Priority**: medium
+**Status**: active
+**Area**: task-delegation
+
+### Summary
+ECC 学到的子代理（iris-memory/coder/news/check）配了但几乎没用过。实际委派任务时主代理倾向于自己干活，没有真正执行"判断：自己干还是委派"的流程。
+
+### Prevention
+收到任务时先问自己：这个任务适合委派吗？
+- 记忆管理 → iris-memory
+- 编程/搜索 → iris-coder
+- 资讯抓取 → iris-news
+- 自检验证 → iris-check
+
+不是所有任务都要自己干。

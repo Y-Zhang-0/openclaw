@@ -87,3 +87,30 @@
 ---
 
 _最后更新：2026-04-28_
+
+---
+
+# Pattern: gateway-restart-session-recovery
+- 场景：gateway 重启后 session 进入 zombie 态，需要外部消息唤醒
+- 做法：watchdog 检测到网关挂了 → 用 `systemctl --user restart` 完整重启 → 重启后需要 @ 我才能唤醒 session（无法自动恢复）
+- 置信度：高
+- 使用次数：3+
+- 上次使用：2026-04-29
+
+---
+
+# Pattern: working-buffer-multi-step
+- 场景：复杂多步骤任务（>3步或预计>10分钟），担心 context 压缩后丢失进度
+- 做法：创建 `memory/working-buffer/{task-name}.md` 记录当前进度，每步完成后更新，任务结束后删除
+- 置信度：中
+- 使用次数：1
+- 上次使用：2026-04-29
+
+---
+
+# Pattern: subagent-delegation-slack
+- 场景：主代理收到任务倾向于自己干，忽视委派机会
+- 做法：收到任务时先问"这个适合委派吗"——记忆管理→iris-memory，编程→iris-coder，资讯→iris-news，自检→iris-check
+- 置信度：中
+- 使用次数：1
+- 上次使用：2026-04-29
