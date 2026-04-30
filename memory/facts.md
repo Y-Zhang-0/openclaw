@@ -143,3 +143,39 @@ _Version 1.6 — 2026-04-29 18:00 CST_
 - Checkpoint Skill 连续7天未确认（04-23→04-29），需直接询问用户是否还需要
 - feishu push 22:00 自检连续8天 delivered=false，cron 推送机制仍未实际落地
 - 04-28 记忆文件缺失，已补写至 2026-04-29.md
+### 04-30 自检更新
+- 22:00 自检 delivery=none 问题已修复（04-30 09:26 发现，改为 announce + message 指令双重保险）
+- isolated session announce 投递失败：即便 delivery.mode=announce，isolated session 的响应也不被投递（delivered=false）
+- 根因：isolated session 完成后 announce 机制不捕捉其响应
+- 修复方案：在 cron payload 里加入 explicit message tool 发送报告到飞书群
+- facts.md 编辑失败：isolated session 里 ~ 路径展开异常，改为绝对路径解决
+- gateway-restart subagent zombie：1天13小时卡住，已 kill
+- HEARTBEAT_OK 回复不触发投递：需要 message tool 显式发送
+
+_Version 1.8 — 2026-04-30 09:55 CST_
+
+## 04-30 重大更正与根因确认
+
+### 22:00 自检连续 9+ 天不推送的真实根因
+- **不是** isolated session feishu 认证问题（message 400 是副产物）
+- **是** delivery 配置缺 `channel: feishu` 字段，只有 `mode: announce`
+- 23:59 自检能推送因为有完整 `channel + to`
+- 22:00 自检不能推送因为只有 `mode: announce`，没有 `channel` 和 `to`
+- **修复**：补全 15204a72 的 delivery.channel=feishu, delivery.to=chat:oc_73d105570c642ea813368386e661801e
+- 22:00 和 23:59 自检现在 delivery 配置完全一致
+
+### 用户实际有对话（统计错误更正）
+- 04-30 09:20-09:54 用户连续发送 6 条消息（在飞书群）
+- 09:42/09:46 的自检报告记录"无用户对话"是因为 isolated session 看不到 main session 历史
+- 这是 **cron isolated session 的架构限制**，不是真的没有用户
+
+### isolated session message 400 错误
+- 根因：isolated session feishu plugin token 和 main session 不同步
+- 但这个错误已被绕过（不需要在 payload 里用 message tool 了）
+
+### Facts.md 编辑失败根因确认
+- isolated session 里 `~` 路径展开异常
+- **解法**：使用绝对路径 `/root/.openclaw/workspace/memory/facts.md`
+- 04-30 已在主 session 验证写入成功
+
+_Version 1.8 — 2026-04-30 09:55 CST_

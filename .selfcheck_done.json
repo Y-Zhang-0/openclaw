@@ -1,8 +1,8 @@
 {
-  "四栏内容": "【今日不足】1. 无用户对话：cron 早间（09:18）+ 晚间（22:00）两次执行均无用户输入，HEARTBEAT_OK 完成；2. 飞书推送仍无法确认：22:00 自检 cron 连续 8+ 天 delivered=false，用户是否真实收到 cron 输出仍未知；3. 连续无反馈问题：用户两天未主动发起任何对话（04-28 全天、04-29 全天），无法判断系统是否正常运行。\n\n【用户观察】用户持续离线或静默，说明 cron 自动化任务在正常驱动日常流程。缺乏用户反馈本身也是信号：若 cron 推送真的失败，用户应该会主动询问（用户对"没收到"很敏感）。建议：下次用户出现时主动确认飞书推送是否正常。\n\n【值得沉淀】Pattern-飞书推送 delivery.channel 强制要求：isolated session announce 推飞书，必须显式指定 delivery.channel=feishu，否则 announce 无隐式 channel context。此问题悬空 8 天，最终用户放弃；Pattern-无反馈≠系统正常：连续 HEARTBEAT_OK 可能是系统正常，也可能是所有输出静默失败。用户对"没收到"敏感，必要时应主动确认；无新 skill 需要沉淀（proactive-agent 已覆盖自主 cron 场景）。\n\n【明日行动】1. 飞书推送确认：用户下次出现时主动问"最近 cron 提醒（早安、资讯、下班、健身）收到了吗"；2. 用户离线原因：若继续多日无对话，评估是否需要主动发一条消息打破沉默；3. 系统稳定：gateway watchdog 每小时自动检查，04-28 崩溃问题已修复，持续观察。",
+  "四栏内容": "### 【今日不足】\n1. **22:00 自检 delivery 无 channel 字段**：连续 9+ 天 delivered=false 的根因已找到，是 delivery.mode=announce 但缺 delivery.channel=feishu 和 delivery.to，已在 09:54 修复\n2. **isolated session 无法识别 main session 历史**：导致 09:42/09:46 两次自检误判「无用户对话」，实际用户 09:20-09:54 发 了6条消息\n3. **facts.md 在 isolated session 路径异常**：edit 工具里 ~ 路径展开失败，需用绝对路径绕过\n\n### 【用户观察】\n- 用户在 04-30 09:20-09:54 主动出现并连续追问，说明系统仍在线且用户在关注\n- 用户的「参考 23:59」建议直接帮助找到根因（缺 channel 参数），用户对系统有一定理解\n- 用户授权「按你想的执行」，信任度较高\n\n### 【值得沉淀】\n- **Pattern-announce需要显式channel**：announce mode 不等于飞书推送，需要 delivery.channel=feishu + delivery.to 才能投递\n- **Pattern-cron统计隔离限制**：isolated session cron 看不到 main session 历史，导致误判用户沉默\n- 无新 skill 需要沉淀\n\n### 【明日行动】\n1. **验证 22:00 delivery**：今晚 22:00 观察 delivered 状态是否为 true\n2. **观察 facts.md 绝对路径方案**：在 isolated session 中验证 edit 是否不再报错\n3. **watchdog 持续**：systemctl 每小时检查，gateway 稳定运行中",
   "completed": true,
   "skills_created": [],
-  "date": "2026-04-29",
-  "自检版本": "22:00 CST 晚间定时版",
-  "本次特殊": "无用户对话，仅心跳完成"
+  "飞书推送状态": "修复完成（09:54补全channel参数）",
+  "根因确认": "delivery缺channel字段，非isolated认证问题",
+  "用户对话更正": "04-30 09:20-09:54用户有6条消息，统计错误已更正"
 }
