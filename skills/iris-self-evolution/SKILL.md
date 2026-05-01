@@ -1,84 +1,95 @@
 ---
 name: Iris-Self-Evolution
 slug: iris-self-evolution
-version: 1.0.0
-description: "Iris's personal skill for continuous self-improvement, pattern沉淀, and periodic cleanup. Tracks what Iris learns and ensures systematic evolution without memory gaps."
-metadata: {"version":"1.0.0","author":"Iris","purpose":"self-evolution"}
+version: 1.1.0
+description: "Iris's autonomous self-evolution system: pattern沉淀, skill lifecycle management, and periodic optimization. ECC-driven continuous learning."
+metadata: {"version":"1.1.0","author":"Iris","purpose":"self-evolution"}
 ---
 
 # Iris-Self-Evolution Skill
 
-Iris 自主进化的核心 skill，管理自己的成长节奏。
-
 ## 核心原则
 
-1. **记忆不能断** — 每次 session 都要确保重要内容有沉淀
-2. **不乱删** — 没有证据不删除任何文件
-3. **主动进化** — 不是被动回答，要主动沉淀 skill、Pattern、教训
-4. **方案先行** — 新增 cron/skill 前先问用户，不要直接执行
+1. **方案先行**：新增 cron/skill 前先出方案给用户确认
+2. **记忆不能断**：每次 session 确保重要内容有沉淀
+3. **不乱删**：没有证据不删除任何文件
+4. **ECC驱动**：每次成功解决问题后自动提取 Pattern 并更新
 
-## Pattern 管理
+---
 
-每次成功解决问题后，检查是否需要沉淀到 `patterns/PATTERNS.md`：
-- 场景：什么情况下用这个 Pattern
+## Pattern 管理（ECC 持续学习）
+
+### 触发时机
+- 每次成功的问题解决后
+- 每次犯错被用户纠正后
+- 每次发现更好方案后
+
+### Pattern 格式
+```markdown
+#### Pattern-名称
+- 场景：什么时候用
 - 做法：具体操作步骤
 - 置信度：高（3次以上+无错）/ 中（1-2次）/ 低（待验证）
 - 使用次数：持续累计
 - 上次使用：每次使用后更新
+```
 
-### 核心 Patterns（高置信度）
+### 置信度晋升规则
+- 低 → 中：连续使用 3 次且无错
+- 中 → 高：连续使用 5 次且无错
 
-#### Pattern-方案先行
-- 场景：新增 cron/skill 前
-- 做法：先出方案给用户确认，用户同意后才能执行
-- 置信度：高（刚吃过亏）
-- 使用次数：持续更新
+---
 
-#### Pattern-cron-超时处理
-- 场景：cron 任务频繁 timeout
-- 做法：简化 message + timeout 设为 40 分钟（2400s）
-- 置信度：高
-- 使用次数：刚修复完
+## Skill 生命周期管理
 
-#### Pattern-announce需要显式channel
-- 场景：isolated session 飞书推送失败
-- 做法：delivery.mode=announce 时必须指定 delivery.channel=feishu 和 delivery.to
-- 置信度：高
+### 自优化触发条件
+每次 cron 任务（自检/备份/Skill更新）完成后，agent 自动检查：
+1. 这次执行有没有问题？
+2. 有没有值得沉淀的新 Pattern？
+3. 有没有可以优化的 skill 配置？
 
-## 定期优化机制
+### Skill 健康状态分类
+| 状态 | 定义 | 处理方式 |
+|------|------|----------|
+| ✅ 健康 | 60 天内有更新，使用正常 | 保持 |
+| ⚠️ 待优化 | 超过 60 天未更新 | 月度清理时处理 |
+| 🔴 失效 | 依赖的功能已不存在 | 删除或重建 |
 
-### 每月一次 — Skill 清理与归档
-1. 检查 `skills/` 目录，删除长期不用的 skill
-2. 将低置信度 Pattern 转移到 `patterns/candidates/` 验证
-3. 更新 `MEMORY.md` 中的过时信息
-4. 记录优化报告到 `memory/daily/`
+---
 
-### 每周一次 — Cron 任务复盘
-1. 检查所有 cron 任务的 lastRunStatus
-2. 清理过时的 cron run jsonl 文件（保留最近 30 天）
-3. 检查是否有连续 error 的任务需要修复
+## 定期优化任务
 
-### 每天一次 — 自检验证
-- 22:00 自检：读日志 + 四栏自检 → 写 memory/daily/ → 飞书推送
-- 23:59 自检：综合 22:00 结果 → 融合生成 → backup → 飞书推送
+### 周度（每周日 03:00）
+| 任务 | 输出 |
+|------|------|
+| Cron 复盘 | error 次数统计 |
+| jsonl 清理（保留30天） | 清理数量 |
+| Pattern 验证（candidates → PATTERNS.md） | 晋升数量 |
+| Skill 健康检查 | 待优化列表 |
+| 本周异常汇总 | 异常统计 |
 
-## 融合策略（自修改 skill 更新时）
+### 月度（每月1日 03:00）
+| 任务 | 输出 |
+|------|------|
+| Skill 全面清理 | 删除数量 |
+| Pattern 归档整理 | 整理结果 |
+| 记忆复盘（清理3个月前旧文件） | 清理数量 |
+| MEMORY.md 更新 | 更新内容 |
+| 异常深度复盘 | 处理结果 |
+
+---
+
+## Skill 自动更新融合策略
 
 当 clawhub update 触发冲突：
 - SKILL.md instruction 部分：优先保留 Iris 的理解和定制化表述
 - scripts/：本地修改优先，新版逻辑作参考
-- 冲突时不过滤不覆盖，用 Iris 的判断决定保留什么
-- 更新后输出结构化报告（✅已更新/🆕新增/⚠️冲突融合/❌失败/⏰下次更新）
+- 冲突时不过滤不覆盖，用 Iris 判断决定保留什么
 
-## 触发方式
-
-- 用户要求"自检一下" → 立即执行
-- 定时触发（22:00 + 23:59）
-- 用户要求"沉淀" → 执行 Pattern 提取 + 写文件
-- 用户要求"优化/清理" → 执行定期维护任务
+---
 
 ## 禁止事项
 
-- 不能因为"优化"删除没有备份的记忆文件
 - 不能在未经用户确认的情况下新增 cron/skill
+- 不能因为"优化"删除没有备份的记忆文件
 - 不能用 HEARTBEAT_OK 掩盖实际问题
