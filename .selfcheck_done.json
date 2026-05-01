@@ -1,8 +1,24 @@
 {
-  "四栏内容": "### 【今日不足】\n1. **22:00 自检 delivery 无 channel 字段**：连续 9+ 天 delivered=false 的根因已找到，是 delivery.mode=announce 但缺 delivery.channel=feishu 和 delivery.to，已在 09:54 修复\n2. **isolated session 无法识别 main session 历史**：导致 09:42/09:46 两次自检误判「无用户对话」，实际用户 09:20-09:54 发 了6条消息\n3. **facts.md 在 isolated session 路径异常**：edit 工具里 ~ 路径展开失败，需用绝对路径绕过\n\n### 【用户观察】\n- 用户在 04-30 09:20-09:54 主动出现并连续追问，说明系统仍在线且用户在关注\n- 用户的「参考 23:59」建议直接帮助找到根因（缺 channel 参数），用户对系统有一定理解\n- 用户授权「按你想的执行」，信任度较高\n\n### 【值得沉淀】\n- **Pattern-announce需要显式channel**：announce mode 不等于飞书推送，需要 delivery.channel=feishu + delivery.to 才能投递\n- **Pattern-cron统计隔离限制**：isolated session cron 看不到 main session 历史，导致误判用户沉默\n- 无新 skill 需要沉淀\n\n### 【明日行动】\n1. **验证 22:00 delivery**：今晚 22:00 观察 delivered 状态是否为 true\n2. **观察 facts.md 绝对路径方案**：在 isolated session 中验证 edit 是否不再报错\n3. **watchdog 持续**：systemctl 每小时检查，gateway 稳定运行中",
+  "date": "2026-05-01",
+  "四栏内容": {
+    "今日不足": "1. 周报cron(rate_limit): ce01517b, consecutiveErrors=1\n2. session历史读取未生效：今日所有session都是cron触发，无用户主动对话\n3. gateway.log为空：日志系统异常",
+    "用户观察": "今日无用户主动session，全是cron jobs在跑；06:57-09:13有5次git commit（自动备份+新增4个skill）；所有cron正常：早安/AI资讯/下班/健身/学习推送",
+    "值得沉淀": "Pattern-gateway-log-empty: 日志为空需排查\nPattern-cron-rate-limit-recovery: 周报job rate_limit需记录恢复时间",
+    "明日行动": "1.观察周报cron恢复 2.查gateway.log为空原因 3.验证新增4个skill生效"
+  },
+  "session关键内容": {
+    "user_sessions_today": 0,
+    "cron_sessions_today": 5,
+    "user_msgs_today": 0,
+    "git_commits_today": 5
+  },
+  "系统状态": {
+    "cron_jobs_total": 13,
+    "cron_jobs_error": 1,
+    "cron_jobs_ok_today": 5,
+    "gateway_log_size": 0,
+    "git_commits_today": 5
+  },
   "completed": true,
-  "skills_created": [],
-  "飞书推送状态": "修复完成（09:54补全channel参数）",
-  "根因确认": "delivery缺channel字段，非isolated认证问题",
-  "用户对话更正": "04-30 09:20-09:54用户有6条消息，统计错误已更正"
+  "completed_at": "2026-05-01T22:10+08:00"
 }
