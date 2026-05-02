@@ -1,24 +1,53 @@
 {
-  "date": "2026-05-01",
-  "四栏内容": {
-    "今日不足": "1. 周报cron(rate_limit): ce01517b, consecutiveErrors=1\n2. session历史读取未生效：今日所有session都是cron触发，无用户主动对话\n3. gateway.log为空：日志系统异常",
-    "用户观察": "今日无用户主动session，全是cron jobs在跑；06:57-09:13有5次git commit（自动备份+新增4个skill）；所有cron正常：早安/AI资讯/下班/健身/学习推送",
-    "值得沉淀": "Pattern-gateway-log-empty: 日志为空需排查\nPattern-cron-rate-limit-recovery: 周报job rate_limit需记录恢复时间",
-    "明日行动": "1.观察周报cron恢复 2.查gateway.log为空原因 3.验证新增4个skill生效"
-  },
-  "session关键内容": {
-    "user_sessions_today": 0,
-    "cron_sessions_today": 5,
-    "user_msgs_today": 0,
-    "git_commits_today": 5
-  },
-  "系统状态": {
-    "cron_jobs_total": 13,
-    "cron_jobs_error": 1,
-    "cron_jobs_ok_today": 5,
-    "gateway_log_size": 0,
-    "git_commits_today": 5
-  },
   "completed": true,
-  "completed_at": "2026-05-01T22:10+08:00"
+  "date": "2026-05-02",
+  "checkTime": "22:00",
+  "summary": {
+    "不足": [
+      "周报 cron rate_limit（ce01517b），consecutiveErrors=1",
+      "自检 cron 误报 error（delivered=true 但日志显示 Message failed）",
+      "gateway.log 为空/不存在，需排查",
+      "全天无用户主动 session（连续第二天）"
+    ],
+    "用户观察": [
+      "天气：宝山小雨转中雨，24°C→16°C，室内天气",
+      "AI资讯：斯坦福《2026AI指数报告》，全球投资5817亿美元，中美差距2.7%",
+      "05-01/05-02 连续两天无用户主动 session（假期正常现象）"
+    ],
+    "值得沉淀": [],
+    "明日行动": [
+      "观察周报 cron（05-04 09:00）是否恢复",
+      "等待用户回归",
+      "排查 gateway.log 为空问题",
+      "学习进度追踪（D1 类型注解+Pydantic+f-string）"
+    ]
+  },
+  "cronJobs": {
+    "周报生成-ce01517b": "error(rate_limit), consecutiveErrors=1, nextRunAtMs=1777856400000(2026-05-04T09:00)",
+    "健身提醒-9169f436": "ok, lastRunAtMs=1777635000002, nextRunAtMs=1777894200000",
+    "Skill自动更新-f6751f31": "ok, 多次执行正常",
+    "22:00自检-b0b77b43": "error但delivered=true（误报），正在运行中"
+  },
+  "systemStatus": {
+    "gateway": "ok（无 restart/crash）",
+    "cronScheduler": "ok",
+    "logs": "gateway.log 为空需排查"
+  },
+  "sessionStats": {
+    "totalSessions": 7,
+    "userInitiatedSessions": 0,
+    "cronTriggeredSessions": 7,
+    "note": "全天用户无主动会话，均为 cron 触发"
+  },
+  "gitCommits": {
+    "since": "2026-05-01 00:00",
+    "commits": [
+      "a4db5ba auto-backup 2026-05-01_23:59",
+      "9f59c74 auto-backup 2026-05-01_09:12",
+      "3c8f58d 新增3个skill",
+      "61b5e36 新增 skill: iris-self-evolution",
+      "e739a0b auto-backup 2026-05-01_07:06",
+      "6add546 auto-backup 2026-05-01_06:57"
+    ]
+  }
 }
