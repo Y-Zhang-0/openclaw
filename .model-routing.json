@@ -1,0 +1,14 @@
+{
+  "enabled": false,
+  "description": "Token模型分级开关。true=启用分级，false=全部使用默认模型",
+  "routes": {
+    "light": ["Watchdog", "健身提醒", "早安问候", "下班提醒"],
+    "medium": ["学习推送", "AI资讯", "Skill自动更新"]
+  },
+  "models": {
+    "light": "minimax/MiniMax-M2.1-highspeed",
+    "medium": "minimax/MiniMax-M2.1",
+    "heavy": "minimax/MiniMax-M2.7"
+  },
+  "default": "minimax/MiniMax-M2.7"
+}
