@@ -1,53 +1,74 @@
 {
   "completed": true,
-  "date": "2026-05-02",
+  "date": "2026-05-03",
   "checkTime": "22:00",
   "summary": {
     "不足": [
-      "周报 cron rate_limit（ce01517b），consecutiveErrors=1",
-      "自检 cron 误报 error（delivered=true 但日志显示 Message failed）",
-      "gateway.log 为空/不存在，需排查",
-      "全天无用户主动 session（连续第二天）"
+      "gateway.log 不存在（连续第二天）",
+      "23:59 自检 cron error（22h前失败）",
+      "Skill自动更新 cron error 但实际执行成功（状态误报）",
+      "周报 cron error 连续第8天",
+      "全天无用户主动 session（连续第三天，周末正常）"
     ],
     "用户观察": [
-      "天气：宝山小雨转中雨，24°C→16°C，室内天气",
-      "AI资讯：斯坦福《2026AI指数报告》，全球投资5817亿美元，中美差距2.7%",
-      "05-01/05-02 连续两天无用户主动 session（假期正常现象）"
+      "全天无用户主动 session",
+      "05-01/05-02/05-03 连续三天无用户主动会话",
+      "周末+假期，正常现象"
     ],
-    "值得沉淀": [],
+    "值得沉淀": [
+      "新增 Pattern: cron-error-status-mismatch（cron 状态 error 但实际执行成功）"
+    ],
     "明日行动": [
-      "观察周报 cron（05-04 09:00）是否恢复",
-      "等待用户回归",
-      "排查 gateway.log 为空问题",
+      "修复 gateway.log 问题（排查日志配置或版本变更）",
+      "确认 23:59 cron 状态是否影响明早推送",
+      "观察周报 cron（05-04 09:00）",
+      "修复 Skill自动更新状态误报",
       "学习进度追踪（D1 类型注解+Pydantic+f-string）"
     ]
   },
   "cronJobs": {
-    "周报生成-ce01517b": "error(rate_limit), consecutiveErrors=1, nextRunAtMs=1777856400000(2026-05-04T09:00)",
-    "健身提醒-9169f436": "ok, lastRunAtMs=1777635000002, nextRunAtMs=1777894200000",
-    "Skill自动更新-f6751f31": "ok, 多次执行正常",
-    "22:00自检-b0b77b43": "error但delivered=true（误报），正在运行中"
+    "自检-22:00-b0b77b43": "running（正常）",
+    "Watchdog-08121ade": "ok",
+    "每日记忆+备份-23:59-60fd9973": "error, 22h前失败，待查",
+    "Skill自动更新-b39f804d": "error但执行成功（误报）",
+    "早安问候-0442126e": "ok",
+    "AI资讯抓取-1f798f89": "ok",
+    "周报生成-ce01517b": "error, 连续8天, rate_limit",
+    "下班提醒-2d9439e6": "ok",
+    "健身提醒-9169f436": "ok",
+    "每日学习推送-34fd19bd": "ok",
+    "周度自进化-c3bf8743": "ok",
+    "月度自进化-c4854795": "idle（正常）"
   },
   "systemStatus": {
     "gateway": "ok（无 restart/crash）",
     "cronScheduler": "ok",
-    "logs": "gateway.log 为空需排查"
+    "logs": "gateway.log 不存在，logs目录为空"
   },
   "sessionStats": {
-    "totalSessions": 7,
+    "totalSessions": 8,
     "userInitiatedSessions": 0,
-    "cronTriggeredSessions": 7,
-    "note": "全天用户无主动会话，均为 cron 触发"
+    "cronTriggeredSessions": 8,
+    "note": "周末，全天用户无主动会话，均为 cron 触发"
+  },
+  "patterns": {
+    "新增": ["cron-error-status-mismatch"],
+    "今日使用": ["cron-error-status-mismatch"]
   },
   "gitCommits": {
-    "since": "2026-05-01 00:00",
+    "since": "2026-05-03 00:00",
     "commits": [
-      "a4db5ba auto-backup 2026-05-01_23:59",
-      "9f59c74 auto-backup 2026-05-01_09:12",
-      "3c8f58d 新增3个skill",
-      "61b5e36 新增 skill: iris-self-evolution",
-      "e739a0b auto-backup 2026-05-01_07:06",
-      "6add546 auto-backup 2026-05-01_06:57"
+      "30f0dd5 2026-05-03 daily memory + maintenance log",
+      "ff3db73 auto-backup 2026-05-02_23:59"
     ]
-  }
+  },
+  "newPatterns": [
+    {
+      "name": "cron-error-status-mismatch",
+      "scenario": "cron 任务状态显示 error，但实际执行成功（.last_maintenance 有成功记录）",
+      "solution": "优先查 .last_maintenance 的实际执行结果，不能只看 cron list 的 status",
+      "confidence": "低",
+      "usageCount": 1
+    }
+  ]
 }
