@@ -86,7 +86,17 @@
 
 ---
 
-_最后更新：2026-04-28_
+# Pattern: cron-error-status-mismatch
+- 场景：cron 任务状态显示 error，但实际执行成功（.last_maintenance 有成功记录）
+- 做法：优先查 .last_maintenance 的实际执行结果，不能只看 cron list 的 status
+- 置信度：中（1次成功验证）
+- 使用次数：1
+- 上次使用：2026-05-03
+- 优先级：中（影响自检判断准确性）
+
+---
+
+_最后更新：2026-05-03_
 
 ---
 
