@@ -1,37 +1,36 @@
 {
   "completed": true,
-  "date": "2026-05-03",
-  "checkTime": "23:59",
+  "date": "2026-05-04",
+  "checkTime": "22:00",
   "summary": {
     "不足": [
-      "22:00 自检 cron error（Feishu card JSON parse error，连续第3次）",
-      "23:59 自检 cron error（连续第2次，本次执行为本次任务本身）",
-      "Skill自动更新 cron error 但实际执行成功（状态误报）",
-      "周报 cron error 连续第9天（rate_limit）"
+      "22:00 自检 cron error（Feishu card JSON parse error，连续第4次）",
+      "周报 cron error（rate_limit，连续第10次）",
+      "23:59 自检 cron error（本次执行为本次任务本身，连续第3次）"
     ],
     "用户观察": [
-      "全天无用户主动 session",
-      "05-01/05-02/05-03/05-04 连续四天无用户主动会话",
-      "五一假期+周末，正常现象"
+      "今日12:52用户触发本次自检",
+      "五一假期第五天，用户主动session依然很少",
+      "用户有对话但以cron触发为主"
     ],
     "值得沉淀": [
-      "Pattern cron-error-status-mismatch 置信度从低提升到中（1次成功验证）"
+      "cron-error-status-mismatch Pattern 置信度：中（1次成功验证）"
     ],
     "明日行动": [
       "观察 22:00 自检 cron（05-04 22:00，看是否还 error）",
-      "观察周报 cron（05-04 09:00，看是否还 rate_limit）",
-      "排查 23:59 cron 连续 error 原因",
+      "周报 cron 连续第10天 rate_limit，根因排查",
+      "23:59 自检 cron 连续 error，排查是否同 22:00 一样是 Feishu card 问题",
       "学习进度追踪（D1 类型注解+Pydantic+f-string）"
     ]
   },
   "cronJobs": {
-    "自检-22:00-b0b77b43": "error, 连续3次, Feishu card JSON parse error",
+    "自检-22:00-b0b77b43": "error, 连续4次, Feishu card JSON parse error",
     "Watchdog-08121ade": "ok",
-    "每日记忆+备份-23:59-60fd9973": "error, 连续2次",
-    "Skill自动更新-b39f804d": "error但执行成功（误报）",
+    "每日记忆+备份-23:59-60fd9973": "error, 连续3次",
+    "Skill自动更新-b39f804d": "ok",
     "早安问候-0442126e": "ok",
     "AI资讯抓取-1f798f89": "ok",
-    "周报生成-ce01517b": "error, 连续9天, rate_limit",
+    "周报生成-ce01517b": "error, 连续10次, rate_limit",
     "下班提醒-2d9439e6": "ok",
     "健身提醒-9169f436": "ok",
     "每日学习推送-34fd19bd": "ok",
@@ -39,25 +38,11 @@
     "月度自进化-c4854795": "idle（正常）"
   },
   "systemStatus": {
-    "gateway": "ok（pid 139610 正常运行）",
-    "cronScheduler": "ok",
-    "logs": "/tmp/openclaw/openclaw-YYYY-MM-DD.log（JSON格式，已确认）"
-  },
-  "sessionStats": {
-    "totalSessions": 8,
-    "userInitiatedSessions": 0,
-    "cronTriggeredSessions": 8,
-    "note": "五一假期周末，全天用户无主动会话，均为 cron 触发"
+    "gateway": "ok",
+    "cronScheduler": "ok"
   },
   "patterns": {
-    "更新": ["cron-error-status-mismatch（置信度低→中）"],
-    "今日使用": ["cron-error-status-mismatch"]
-  },
-  "gitCommits": {
-    "since": "2026-05-03 00:00",
-    "commits": [
-      "c62a540 自检 2026-05-03: 新增 cron-error-status-mismatch Pattern",
-      "30f0dd5 2026-05-03 daily memory + maintenance log"
-    ]
+    "更新": ["cron-error-status-mismatch（置信度中）"],
+    "今日使用": []
   }
 }
