@@ -77,6 +77,15 @@
 
 ---
 
+**新增 Pattern：cron-job-error-pattern-multi-source**
+- 场景：多个 cron job 连续报同类 error（Feishu card / rate_limit），根因可能在共享模块
+- 做法：同日内 3+ 个 job 出现相同 error → 优先查共享依赖（gateway/Feishu plugin/config），而不是逐个 job 排查
+- 置信度：中（待更多验证）
+- 使用次数：2
+- 上次使用：2026-05-04
+
+---
+
 # Pattern: backup-to-develop-branch
 - 场景：日常备份推送到 master 分支会导致版本混乱
 - 做法：备份命令用 `git push origin develop`，不是 master
@@ -96,7 +105,19 @@
 
 ---
 
-_最后更新：2026-05-03_
+---
+
+# Pattern: cron-job-error-pattern-recognition
+- 场景：同日内多个 cron job 连续报同类 error（Feishu card / rate_limit），需要统一根因排查
+- 做法：同日内出现 3+ 次相同 error pattern → 优先查 API 限速/配置问题，而不是逐个 job 看
+- 置信度：中（待验证）
+- 使用次数：1
+- 上次使用：2026-05-04
+- 优先级：高
+
+---
+
+_最后更新：2026-05-04_
 
 ---
 

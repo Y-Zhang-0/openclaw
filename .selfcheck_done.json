@@ -6,26 +6,27 @@
     "不足": [
       "22:00 自检 cron error（Feishu card JSON parse error，连续第4次）",
       "周报 cron error（rate_limit，连续第10次）",
-      "23:59 自检 cron error（本次执行为本次任务本身，连续第3次）"
+      "23:59 自检 cron error（连续第3次）",
+      "watchdog.log 最新只到 05-03，05-04 无记录"
     ],
     "用户观察": [
-      "今日12:52用户触发本次自检",
-      "五一假期第五天，用户主动session依然很少",
-      "用户有对话但以cron触发为主"
+      "五一假期第五天，用户主动 session 为 0",
+      "全天无用户消息，全部 cron 驱动"
     ],
     "值得沉淀": [
-      "cron-error-status-mismatch Pattern 置信度：中（1次成功验证）"
+      "cron-job-error-pattern-recognition Pattern（置信度中，待验证）"
     ],
     "明日行动": [
-      "观察 22:00 自检 cron（05-04 22:00，看是否还 error）",
-      "周报 cron 连续第10天 rate_limit，根因排查",
-      "23:59 自检 cron 连续 error，排查是否同 22:00 一样是 Feishu card 问题",
-      "学习进度追踪（D1 类型注解+Pydantic+f-string）"
+      "观察 05-05 22:00 自检是否成功",
+      "周报 rate_limit 根因排查",
+      "23:59 自检 cron 根因（是否同 22:00）",
+      "watchdog 05-04 无日志问题排查",
+      "学习进度追踪 D1"
     ]
   },
   "cronJobs": {
-    "自检-22:00-b0b77b43": "error, 连续4次, Feishu card JSON parse error",
-    "Watchdog-08121ade": "ok",
+    "自检-22:00-572315bb": "error, 连续4次, Feishu card JSON parse error",
+    "Watchdog-08121ade": "ok（但日志 05-04 无记录）",
     "每日记忆+备份-23:59-60fd9973": "error, 连续3次",
     "Skill自动更新-b39f804d": "ok",
     "早安问候-0442126e": "ok",
@@ -39,10 +40,11 @@
   },
   "systemStatus": {
     "gateway": "ok",
-    "cronScheduler": "ok"
+    "cronScheduler": "ok",
+    "watchdog": "日志 05-04 无记录"
   },
   "patterns": {
-    "更新": ["cron-error-status-mismatch（置信度中）"],
+    "新增": ["cron-job-error-pattern-recognition（置信度中）"],
     "今日使用": []
   }
 }
