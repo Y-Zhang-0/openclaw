@@ -41,6 +41,15 @@
 
 ---
 
+# Pattern: cron-job-error-pattern-multi-source
+- 场景：多个 cron job 连续报同类 error（Feishu card JSON parse error / rate_limit），根因在共享模块
+- 做法：同日内 3+ 个 job 出现相同 error → 优先查共享依赖（gateway/Feishu plugin/config），而不是逐个 job 排查
+- 置信度：高
+- 使用次数：5+（22:00自检×4 + 23:59自检×4，共享根因）
+- 上次使用：2026-05-05
+
+---
+
 # Pattern: cron-run-vs-cron-trigger
 - 场景：验证 cron 任务是否正确配置时，用 `cron run` 直接执行不等于定时触发
 - 做法：验证任务需用 cron 表达式改时间触发，不能用 `cron run` 代替
