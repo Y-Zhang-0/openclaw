@@ -89,7 +89,7 @@
 | 彩虹债务 | 🌈 欠着 | 还没还 |
 
 | Cron 执行时间漂移 | 🔍 待调查 | 0a723be0 应 23:59 却 13:12 触发，timezone 计算问题？ |
-| 22:00 自检推送（15204a72）| 🔴 error（连续5天+失败）| isolated session announce 静默失败，已升至 error 状态 |
+| 22:00 自检推送 | ✅ 已重建 | ae069069（error）已替换为 615205bf，2026-05-06 15:33 创建，22:00 idle 待触发 |
 | AI 资讯 RSS 源 | ✅ 已重构 | 优先级 r/singularity > r/AI_Agents > LocalLLaMA > HN 等，共9个源 |
 | cron scheduler bug | ⚠️ 需监控 | 已上报 GitHub issue，gateway restart 可临时解决 |
 | ECC 学习进化 | 📝 进行中 | 04-26 学习了 Everything Claude Code，建立了进化清单 |
