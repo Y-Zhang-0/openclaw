@@ -126,7 +126,7 @@
 
 ---
 
-_最后更新：2026-05-04_
+_最后更新：2026-05-07_
 
 ---
 
@@ -154,3 +154,15 @@ _最后更新：2026-05-04_
 - 置信度：中
 - 使用次数：2
 - 上次使用：2026-04-29
+
+---
+
+# Pattern: watchdog-log-silent-is-normal
+- 场景：watchdog.log 连续多日无新记录，被误判为"停摆/故障"
+- 做法：watchdog.sh 只在 gateway DOWN 时写日志，running 状态不写。判断是否故障应查 `systemctl --user status openclaw` 或 `openclaw status`，而不是查日志有无新条目
+- 置信度：高
+- 使用次数：1
+- 上次使用：2026-05-07
+- 优先级：中
+- 状态：（新沉淀）
+
