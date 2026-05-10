@@ -1,37 +1,35 @@
 {
   "completed": true,
-  "date": "2026-05-04",
-  "checkTime": "22:00",
+  "date": "2026-05-10",
+  "checkTime": "23:59",
   "summary": {
     "不足": [
-      "22:00 自检 cron error（Feishu card JSON parse error，连续第4次）",
-      "周报 cron error（rate_limit，连续第10次）",
-      "23:59 自检 cron error（连续第3次）",
-      "watchdog.log 最新只到 05-03，05-04 无记录"
+      "watchdog.log 日志缺口（05-03 02:02→05-10 05:00，断7天）",
+      ".selfcheck_done.json 更新逻辑缺失（announce 绕过导致状态文件未更新）"
     ],
     "用户观察": [
-      "五一假期第五天，用户主动 session 为 0",
-      "全天无用户消息，全部 cron 驱动"
+      "周末用户不上线，符合既往模式",
+      "周报 05-12 09:00 首次验证 rate_limit 清零",
+      "D1 学习任务未启动"
     ],
     "值得沉淀": [
-      "cron-job-error-pattern-recognition Pattern（置信度中，待验证）"
+      "watchdog-log-gap-pattern（新增，置信度中，待验证）"
     ],
     "明日行动": [
-      "观察 05-05 22:00 自检是否成功",
-      "周报 rate_limit 根因排查",
-      "23:59 自检 cron 根因（是否同 22:00）",
-      "watchdog 05-04 无日志问题排查",
-      "学习进度追踪 D1"
+      "观察 05-11 用户上线情况",
+      "排查 watchdog 日志 gap 根因",
+      "周报 05-12 验证",
+      "修复 .selfcheck_done.json 更新逻辑"
     ]
   },
   "cronJobs": {
-    "自检-22:00-572315bb": "error, 连续4次, Feishu card JSON parse error",
-    "Watchdog-08121ade": "ok（但日志 05-04 无记录）",
-    "每日记忆+备份-23:59-60fd9973": "error, 连续3次",
+    "自检-22:00-ae069069": "ok",
+    "Watchdog-08121ade": "ok（日志gap7天）",
+    "每日记忆+备份-23:59-db486b6e": "ok（本次）",
     "Skill自动更新-b39f804d": "ok",
     "早安问候-0442126e": "ok",
     "AI资讯抓取-1f798f89": "ok",
-    "周报生成-ce01517b": "error, 连续10次, rate_limit",
+    "周报生成-ce01517b": "ok",
     "下班提醒-2d9439e6": "ok",
     "健身提醒-9169f436": "ok",
     "每日学习推送-34fd19bd": "ok",
@@ -41,10 +39,10 @@
   "systemStatus": {
     "gateway": "ok",
     "cronScheduler": "ok",
-    "watchdog": "日志 05-04 无记录"
+    "watchdog": "日志缺口7天（05-03~05-10）"
   },
   "patterns": {
-    "新增": ["cron-job-error-pattern-recognition（置信度中）"],
-    "今日使用": []
+    "新增": ["watchdog-log-gap-pattern（置信度中）"],
+    "今日使用": ["cron-job-error-announce-vs-delivery"]
   }
 }

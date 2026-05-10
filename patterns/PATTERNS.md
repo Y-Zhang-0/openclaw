@@ -161,8 +161,8 @@ _最后更新：2026-05-07_
 - 场景：watchdog.log 连续多日无新记录，被误判为"停摆/故障"
 - 做法：watchdog.sh 只在 gateway DOWN 时写日志，running 状态不写。判断是否故障应查 `systemctl --user status openclaw` 或 `openclaw status`，而不是查日志有无新条目
 - 置信度：高
-- 使用次数：1
-- 上次使用：2026-05-07
+- 使用次数：2
+- 上次使用：2026-05-10
 - 优先级：中
-- 状态：（新沉淀）
+- 状态：✅ 05-10 验证（7天缺口但 gateway probe 正常，符合 Pattern；如缺口过长如7天，建议额外确认 watchdog 进程是否存活）
 
