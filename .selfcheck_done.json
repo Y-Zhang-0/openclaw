@@ -1,30 +1,32 @@
 {
   "completed": true,
-  "date": "2026-05-10",
+  "date": "2026-05-11",
   "checkTime": "23:59",
   "summary": {
     "不足": [
-      "watchdog.log 日志缺口（05-03 02:02→05-10 05:00，断7天）",
-      ".selfcheck_done.json 更新逻辑缺失（announce 绕过导致状态文件未更新）"
+      "watchdog.log 日志缺口扩大（05-03 02:02→当前，断8天+）",
+      "22:00 自检 job 疑似静默失败（cron runs=0，.selfcheck_done.json 未更新）"
     ],
     "用户观察": [
-      "周末用户不上线，符合既往模式",
+      "05-11 周日无上线，符合周末模式",
+      "issues-tracker.md 新增（05-11 09:49 git commit）",
       "周报 05-12 09:00 首次验证 rate_limit 清零",
-      "D1 学习任务未启动"
+      "D1 学习任务仍未启动"
     ],
     "值得沉淀": [
-      "watchdog-log-gap-pattern（新增，置信度中，待验证）"
+      "cron-job-run-history-empty pattern（置信度中，首次命中）"
     ],
     "明日行动": [
-      "观察 05-11 用户上线情况",
-      "排查 watchdog 日志 gap 根因",
-      "周报 05-12 验证",
-      "修复 .selfcheck_done.json 更新逻辑"
+      "确认 22:00 自检是否真正执行",
+      "周报 05-12 09:00 验证",
+      "watchdog 日志缺口处理",
+      "跟进 D1 学习进度",
+      "审查 issues-tracker.md"
     ]
   },
   "cronJobs": {
-    "自检-22:00-ae069069": "ok",
-    "Watchdog-08121ade": "ok（日志gap7天）",
+    "自检-22:00-ae069069": "gap（runs=0）",
+    "Watchdog-08121ade": "ok（日志gap8天+）",
     "每日记忆+备份-23:59-db486b6e": "ok（本次）",
     "Skill自动更新-b39f804d": "ok",
     "早安问候-0442126e": "ok",
@@ -39,10 +41,10 @@
   "systemStatus": {
     "gateway": "ok",
     "cronScheduler": "ok",
-    "watchdog": "日志缺口7天（05-03~05-10）"
+    "watchdog": "日志缺口8天+（05-03~未恢复）"
   },
   "patterns": {
-    "新增": ["watchdog-log-gap-pattern（置信度中）"],
+    "新增": ["cron-job-run-history-empty（中置信度，首次命中）"],
     "今日使用": ["cron-job-error-announce-vs-delivery"]
   }
 }
