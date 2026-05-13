@@ -157,6 +157,17 @@ _最后更新：2026-05-07_
 
 ---
 
+### Pattern: selfcheck-done-json-isolated-session-bypass
+- **场景**：isolated session 运行自检后，.selfcheck_done.json 或其他状态文件无法被更新
+- **做法**：isolated session 有独立的文件系统视图，主 session 写出的文件对 isolated session 不可见。修复方案：改用 `sessionTarget=current`（绑定当前 session）或在 isolated session 末尾显式调用 `exec` 写文件
+- **置信度**：高（已两次命中：05-12 和 05-13）
+- **使用次数**：2
+- **上次使用**：2026-05-13
+- **优先级**：高
+- **状态**：需修复（明日执行）
+
+---
+
 # Pattern: watchdog-log-silent-is-normal
 - 场景：watchdog.log 连续多日无新记录，被误判为"停摆/故障"
 - 做法：watchdog.sh 只在 gateway DOWN 时写日志，running 状态不写。判断是否故障应查 `systemctl --user status openclaw` 或 `openclaw status`，而不是查日志有无新条目
@@ -164,5 +175,5 @@ _最后更新：2026-05-07_
 - 使用次数：2
 - 上次使用：2026-05-10
 - 优先级：中
-- 状态：✅ 05-10 验证（7天缺口但 gateway probe 正常，符合 Pattern；如缺口过长如7天，建议额外确认 watchdog 进程是否存活）
+- 状态：✅ 05-10 验证（7天缺口但 gateway probe 正常）；05-13 更新：缺口超10天，Gateway 正常，符合 Pattern（缺口超7天建议 `ps aux | grep watchdog` 确认进程存活）
 

@@ -1,32 +1,31 @@
 {
   "completed": true,
-  "date": "2026-05-11",
+  "date": "2026-05-12",
   "checkTime": "23:59",
   "summary": {
     "不足": [
-      "watchdog.log 日志缺口扩大（05-03 02:02→当前，断8天+）",
-      "22:00 自检 job 疑似静默失败（cron runs=0，.selfcheck_done.json 未更新）"
+      "watchdog.log 日志缺口扩大（05-03 02:02→当前，断9天+）",
+      "ISS-002 .selfcheck_done.json 自检后未更新（announce bypass 问题，isolated session 无法正常写状态文件）"
     ],
     "用户观察": [
-      "05-11 周日无上线，符合周末模式",
-      "issues-tracker.md 新增（05-11 09:49 git commit）",
-      "周报 05-12 09:00 首次验证 rate_limit 清零",
+      "22:00-23:59 窗口内无新对话/行程",
+      "周报 cron 05-12 09:00 待验证",
       "D1 学习任务仍未启动"
     ],
     "值得沉淀": [
-      "cron-job-run-history-empty pattern（置信度中，首次命中）"
+      "selfcheck-done-json-isolated-session-bypass（isolated session announce bypass 导致状态文件无法更新）",
+      "watchdog-log-silent-is-normal Pattern 验证（缺口9天，Gateway probe 正常）"
     ],
     "明日行动": [
-      "确认 22:00 自检是否真正执行",
-      "周报 05-12 09:00 验证",
-      "watchdog 日志缺口处理",
-      "跟进 D1 学习进度",
-      "审查 issues-tracker.md"
+      "验证周报 05-12 09:00 触发结果",
+      "跟进 D1 学习进展",
+      "ISS-002 修复方案评估（显式写文件或改用 sessionTarget=current）",
+      "watchdog 缺口超10天则确认进程存活"
     ]
   },
   "cronJobs": {
-    "自检-22:00-ae069069": "gap（runs=0）",
-    "Watchdog-08121ade": "ok（日志gap8天+）",
+    "自检-22:00-657937d5": "ok",
+    "Watchdog-08121ade": "ok（日志gap9天+）",
     "每日记忆+备份-23:59-db486b6e": "ok（本次）",
     "Skill自动更新-b39f804d": "ok",
     "早安问候-0442126e": "ok",
@@ -41,10 +40,11 @@
   "systemStatus": {
     "gateway": "ok",
     "cronScheduler": "ok",
-    "watchdog": "日志缺口8天+（05-03~未恢复）"
+    "watchdog": "日志缺口9天+（05-03~未恢复，Gateway正常）"
   },
   "patterns": {
-    "新增": ["cron-job-run-history-empty（中置信度，首次命中）"],
-    "今日使用": ["cron-job-error-announce-vs-delivery"]
+    "新增": ["selfcheck-done-json-isolated-session-bypass（中置信度，首次命中）"],
+    "更新": ["watchdog-log-silent-is-normal（缺口9天验证成功）"],
+    "今日使用": ["watchdog-log-silent-is-normal"]
   }
 }
