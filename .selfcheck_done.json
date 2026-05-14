@@ -1,50 +1,47 @@
 {
   "completed": true,
-  "date": "2026-05-12",
+  "date": "2026-05-14",
   "checkTime": "23:59",
   "summary": {
     "不足": [
-      "watchdog.log 日志缺口扩大（05-03 02:02→当前，断9天+）",
-      "ISS-002 .selfcheck_done.json 自检后未更新（announce bypass 问题，isolated session 无法正常写状态文件）"
+      "watchdog.log 日志缺口扩大（05-12 18:34→当前，断2天→累计11天）",
+      "ISS-002 .selfcheck_done.json 自检后未更新（isolated session bypass，date 仍为 05-12）"
     ],
     "用户观察": [
-      "22:00-23:59 窗口内无新对话/行程",
-      "周报 cron 05-12 09:00 待验证",
-      "D1 学习任务仍未启动"
+      "22:00 窗口无新对话/行程",
+      "D1 学习任务仍未启动",
+      "05-17 周度自进化临近"
     ],
     "值得沉淀": [
-      "selfcheck-done-json-isolated-session-bypass（isolated session announce bypass 导致状态文件无法更新）",
-      "watchdog-log-silent-is-normal Pattern 验证（缺口9天，Gateway probe 正常）"
+      "watchdog-log-silent-is-normal Pattern 再次确认（缺口2天，Gateway正常）"
     ],
     "明日行动": [
-      "验证周报 05-12 09:00 触发结果",
-      "跟进 D1 学习进展",
-      "ISS-002 修复方案评估（显式写文件或改用 sessionTarget=current）",
-      "watchdog 缺口超10天则确认进程存活"
+      "ISS-002 修复：改 cron 657937d5 sessionTarget=current",
+      "跟进 D1 学习",
+      "确认 05-17 周度自进化准备状态"
     ]
   },
   "cronJobs": {
-    "自检-22:00-657937d5": "ok",
-    "Watchdog-08121ade": "ok（日志gap9天+）",
+    "自检-22:00-657937d5": "未触发（05-15 22:00才到）",
+    "Watchdog-08121ade": "ok（日志gap2天，进程存活）",
     "每日记忆+备份-23:59-db486b6e": "ok（本次）",
     "Skill自动更新-b39f804d": "ok",
     "早安问候-0442126e": "ok",
     "AI资讯抓取-1f798f89": "ok",
-    "周报生成-ce01517b": "ok",
     "下班提醒-2d9439e6": "ok",
     "健身提醒-9169f436": "ok",
     "每日学习推送-34fd19bd": "ok",
-    "周度自进化-c3bf8743": "ok",
+    "周度自进化-c3bf8743": "ok（05-17触发）",
+    "周报生成-ce01517b": "ok（下次05-19）",
     "月度自进化-c4854795": "idle（正常）"
   },
   "systemStatus": {
-    "gateway": "ok",
+    "gateway": "ok（51h+）",
     "cronScheduler": "ok",
-    "watchdog": "日志缺口9天+（05-03~未恢复，Gateway正常）"
+    "watchdog": "日志缺口2天（05-12~，进程存活）"
   },
   "patterns": {
-    "新增": ["selfcheck-done-json-isolated-session-bypass（中置信度，首次命中）"],
-    "更新": ["watchdog-log-silent-is-normal（缺口9天验证成功）"],
-    "今日使用": ["watchdog-log-silent-is-normal"]
+    "确认": ["watchdog-log-silent-is-normal（高置信度，4次验证）"],
+    "未修复": ["selfcheck-done-json-isolated-session-bypass（高置信度，3次命中，明天修复）"]
   }
 }
