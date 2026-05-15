@@ -1,2 +1,2 @@
-2026-05-14T04:00:00+08:00|Skill自动更新（cron b39f804d）: 执行clawhub update --all --force，16个skills全部更新成功，无冲突无新增。6个本地skill未注册clawhub（cron-best-practices/cron-push-to-feishu/cron-scheduler-troubleshooter/doc-only-commitment-tracker/iris-self-evolution/isolated-session-delivery），保持本地版本。
-Next update: 2026-05-15T04:00:00+08:00 (23h later)
+2026-05-15T04:00:00+08:00|Skill自动更新（cron b39f804d）: 执行clawhub update --all --force，16个skills全部更新成功，无冲突无新增。6个本地skill未注册clawhub（cron-best-practices/cron-push-to-feishu/cron-scheduler-troubleshooter/doc-only-commitment-tracker/iris-self-evolution/isolated-session-delivery），保持本地版本。
+Next update: 2026-05-16T04:00:00+08:00 (23h later)
