@@ -177,3 +177,18 @@ _最后更新：2026-05-07_
 - 优先级：中
 - 状态：✅ 05-10 验证（7天缺口但 gateway probe 正常）；05-13 更新：缺口超10天，Gateway 正常，符合 Pattern（缺口超7天建议 `ps aux | grep watchdog` 确认进程存活）
 
+
+---
+
+### ECC-001 · Cron Job SessionTarget 匹配原则
+
+| 字段 | 内容 |
+|------|------|
+| **场景** | 创建/修复 cron job 时，sessionTarget 必须与 payload.kind 匹配 |
+| **做法** | `payload.kind=systemEvent` → `sessionTarget=main` 或 `current`；`payload.kind=agentTurn` → `sessionTarget=isolated` |
+| **反面教材** | isolated session 写入 main session 的 .selfcheck_done.json（bypass，不报错但无效） |
+| **置信度** | 高（3次验证：isolated bypass + current 修复 + main 验证） |
+| **使用次数** | 2 |
+| **上次使用** | 2026-05-15（ISS-002 修复） |
+| **优先级** | 高 |
+| **状态** | 🆕 新增 |
