@@ -1,19 +1,19 @@
 {
   "completed": true,
-  "date": "2026-05-15",
-  "checkTime": "22:00",
+  "date": "2026-05-16",
+  "checkTime": "23:59",
   "summary": {
     "不足": [
-      "22:00 自检 sessionTarget=isolated 待修复（657937d5）",
-      "watchdog.log 日志缺口观察中（进程存活）"
+      "ISS-001 watchdog.log 日志缺口观察中（进程存活）",
+      "ISS-003 D1 学习任务未启动"
     ],
     "用户观察": [
-      "05-14 23:59 自检正常，.selfcheck_done.json 正常更新",
-      "ISS-002 自检执行正常，isolated session bypass 现象未在本次复现"
+      "05-15 22:00 自检正常，.selfcheck_done.json 正常更新",
+      "delta 检查无新增 error / commit / 对话"
     ],
     "值得沉淀": [],
     "明日行动": [
-      "执行 657937d5 sessionTarget=current 修复",
+      "ISS-003 D1 学习任务确认用户意愿",
       "ISS-001 watchdog 缺口继续观察"
     ]
   }
