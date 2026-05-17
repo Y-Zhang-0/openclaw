@@ -1,20 +1,23 @@
 {
   "completed": true,
-  "date": "2026-05-16",
+  "date": "2026-05-17",
   "checkTime": "23:59",
   "summary": {
     "不足": [
-      "ISS-001 watchdog.log 日志缺口观察中（进程存活）",
+      "ISS-001 watchdog.log 日志缺口扩大（05-03→05-17），cron 可能失效",
+      "ISS-002 .selfcheck_done.json 未更新（22:00 自检未触发，与 ISS-001 同根）",
       "ISS-003 D1 学习任务未启动"
     ],
     "用户观察": [
-      "05-15 22:00 自检正常，.selfcheck_done.json 正常更新",
-      "delta 检查无新增 error / commit / 对话"
+      "delta 检查无新增 commit / 对话 / error",
+      "系统运行平稳，但 watchdog cron 存疑"
     ],
-    "值得沉淀": [],
+    "值得沉淀": [
+      "PAT-013：watchdog cron 失效检测（中置信度）"
+    ],
     "明日行动": [
-      "ISS-003 D1 学习任务确认用户意愿",
-      "ISS-001 watchdog 缺口继续观察"
+      "ISS-001+ISS-002 联合排查：手动补发 watchdog cron，验证是否真正触发",
+      "ISS-003 D1 学习任务确认用户意愿"
     ]
   }
 }
